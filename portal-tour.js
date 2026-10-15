@@ -11,7 +11,7 @@
   function syncHint(){
     const arrived=document.body.classList.contains('portal-arrived');
     if(hint){hint.hidden=arrived;hint.disabled=moving;}
-    if(hintLabel)hintLabel.textContent=moving?'正在走向下一幅…':'点击画框外，继续下一幅';
+    if(hintLabel)hintLabel.textContent=moving?'Weiter zum nächsten Bild…':'Klicken Sie außerhalb des Bildrahmens, um zum nächsten Bild zu gelangen';
     document.body.classList.toggle('portal-travelling',moving);
   }
   function schedule(){
@@ -21,8 +21,8 @@
   }
   function update(){
     button.setAttribute('aria-pressed',String(automatic));
-    button.textContent=automatic?'自动浏览 · 开':'自动浏览 · 关';
-    button.title=automatic?'停留 3 秒后缓慢换画，点击可切回手动':'开启自动浏览，每幅停留 3 秒';
+    button.textContent=automatic?'Autoscroll · Autoscroll ein · Autoscroll aus';
+    button.title=automatic?'Nach 3 Sekunden wird langsam zum nächsten Bild gewechselt. Durch Antippen kehren Sie zum manuellen Modus zurück: ':' Aktiviert die automatische Bildanzeige, wobei jedes Bild 3 Sekunden lang angezeigt wird.';
     schedule();syncHint();
   }
   function manual(){automatic=false;update();}
