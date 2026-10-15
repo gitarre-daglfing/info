@@ -62,7 +62,7 @@
   document.addEventListener('click',event=>{
     if(event.target.closest?.('[data-auto-tour]'))return;
     manual();
-    const anchor=event.target.closest?.('a[href^="#frame-"],a[href="#gallery-invitation"]');
+    const anchor=event.target.closest?.('a[href^="#frame-"],a[href="#gallery-invitation"],a[href="#portal-prologue"]');
     if(anchor&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey){
       const target=document.getElementById(anchor.hash.slice(1));
       if(target){event.preventDefault();history.replaceState(null,'',anchor.hash);navigate(target);}

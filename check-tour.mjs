@@ -55,7 +55,16 @@ w.scrollTo({top:3000});toggle.click();tick();finish();assert.equal(w.scrollY,400
 assert.equal(toggle.getAttribute('aria-pressed'),'false','Finale ends the tour');
 reduced.matches=true;w.scrollTo({top:1000});hint.click();assert.equal(w.scrollY,2000);assert.equal(raf.size,0,'Reduced motion is immediate');
 const prologue=d.querySelector('.portal-prologue');
+prologue.getBoundingClientRect=()=>({top:-w.scrollY});
 prologue.dispatchEvent(new w.MouseEvent('click',{bubbles:true,clientX:200,clientY:200}));
 assert.equal(w.scrollY,3000,'Clicking beside the frames in the prologue advances to the next frame');
+const startLink=d.querySelector('.nav-options a[href="#portal-prologue"]');
+startLink.click();
+assert.equal(w.scrollY,0,'The Start navigation link returns to the prologue');
+assert.equal(w.location.hash,'#portal-prologue');
+const finaleLink=d.querySelector('.nav-options a[href="#gallery-invitation"]');
+finaleLink.click();
+assert.equal(w.scrollY,4000,'The Finale navigation link navigates to the finale');
+assert.equal(w.location.hash,'#gallery-invitation');
 dom.window.close();
 console.log('Passed: easing, dwell, background advance, repeat-click guard, rim exclusion, iframe takeover, wheel cancellation, hidden-page pause, finale, reduced motion.');
