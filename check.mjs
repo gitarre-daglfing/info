@@ -20,5 +20,5 @@ for(const name of fs.readdirSync(root).filter(n=>/\.(html|css)$/.test(n))){
 const tour=fs.readFileSync('portal-tour.js','utf8');
 assert.ok(tour.includes('prefers-reduced-motion'));
 assert.ok(tour.includes('portal-user-interaction'));
-for(const name of ['assets/museum.js','assets/starry-gallery/starry-night-mobile.webp','assets/starry-gallery/starry-flow-map.png','assets/starry-gallery/wood/oak-veneer.webp','assets/THREE-LICENSE.txt','assets/starry-gallery/INTERACTIVE-STARRY-NIGHT-LICENSE.txt'])assert.ok(fs.statSync(name).size>0);
-console.log('Passed: four exhibits, unique fictional content, local assets, museum-only export and license presence.');
+for(const name of ['assets/music.js','assets/starry-gallery/starry-night-mobile.webp','assets/starry-gallery/starry-flow-map.png','assets/starry-gallery/wood/oak-veneer.webp','assets/THREE-LICENSE.txt','assets/starry-gallery/INTERACTIVE-STARRY-NIGHT-LICENSE.txt'])assert.ok(fs.statSync(name).size>0);
+console.log('Passed: four exhibits, unique fictional content, local assets, music bundle and license presence.');

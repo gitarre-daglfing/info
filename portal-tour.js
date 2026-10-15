@@ -7,7 +7,7 @@
   const hintLabel=hint?.querySelector('[data-continue-label]');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const duration=2400;
-  let automatic=false,timer=0,animation=0,moving=false,ready=document.readyState==='complete';
+  let automatic=button.getAttribute('aria-pressed')==='true',timer=0,animation=0,moving=false,ready=document.readyState==='complete';
   function syncHint(){
     const arrived=document.body.classList.contains('portal-arrived');
     if(hint){hint.hidden=arrived;hint.disabled=moving;}
@@ -21,8 +21,8 @@
   }
   function update(){
     button.setAttribute('aria-pressed',String(automatic));
-    button.textContent=automatic?'Autoscroll · Autoscroll ein · Autoscroll aus';
-    button.title=automatic?'Nach 3 Sekunden wird langsam zum nächsten Bild gewechselt. Durch Antippen kehren Sie zum manuellen Modus zurück: ':' Aktiviert die automatische Bildanzeige, wobei jedes Bild 3 Sekunden lang angezeigt wird.';
+    button.textContent=automatic?'Autoscroll ausschalten':'Autoscroll einschalten';
+    button.title=automatic?'Nach 3 Sekunden wird langsam zum nächsten Bild gewechselt.':'Automatische Bildanzeige einschalten; jedes Bild bleibt 3 Sekunden lang sichtbar.';
     schedule();syncHint();
   }
   function manual(){automatic=false;update();}
@@ -68,7 +68,7 @@
       if(target){event.preventDefault();history.replaceState(null,'',anchor.hash);navigate(target);}
       return;
     }
-    if(event.defaultPrevented||event.button!==0||event.target.closest?.('a,button,input,textarea,select,label,nav,.story-bottom,.portal-preview,.portal-finale,.portal-prologue,.footer')||document.body.classList.contains('portal-fullscreen'))return;
+    if(event.defaultPrevented||event.button!==0||event.target.closest?.('a,button,input,textarea,select,label,nav,.story-bottom,.portal-preview,.portal-finale,.footer')||document.body.classList.contains('portal-fullscreen'))return;
     // The wood rim is WebGL, not a DOM click target.
     if(window.museumPortalContainsPoint?.(event.clientX,event.clientY))return;
     advance();
