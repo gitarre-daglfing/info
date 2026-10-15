@@ -22,6 +22,7 @@ const footerLabel=document.querySelector('[data-stop-label]');
 const status=document.querySelector('[data-live-status]');
 const previousButton=document.querySelector('button[data-prev]');
 const nextButton=document.querySelector('button[data-next]');
+const pauseButtons=[...document.querySelectorAll('[data-pause]')];
 const nextLabel=document.body.dataset.nextLabel||document.body.dataset.next||'下一幕';
 const pageLinks=[...document.querySelectorAll('.nav-options a[href^="#frame-"],.nav-options a[href="#portal-prologue"],.nav-options a[href="#gallery-invitation"]')];
 const choiceBadges=[...document.querySelectorAll('[data-carry-choice]')];
@@ -128,7 +129,15 @@ stops.forEach((button,i)=>button.addEventListener('click',()=>{
  go(i-1);
 }));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go))));
-document.querySelector('[data-pause]').addEventListener('click',e=>{state.paused=!state.paused;e.currentTarget.setAttribute('aria-pressed',String(state.paused));if(starry)window.museumStarryFlowPause?.(state.paused);e.currentTarget.textContent=state.paused?'Animation starten ▷':'Animation pausieren Ⅱ';renderWake();});
+pauseButtons.forEach(button=>button.addEventListener('click',()=>{
+ state.paused=!state.paused;
+ pauseButtons.forEach(control=>{
+  control.setAttribute('aria-pressed',String(state.paused));
+  control.textContent=state.paused?'Animation starten ▷':'Animation pausieren Ⅱ';
+ });
+ if(starry)window.museumStarryFlowPause?.(state.paused);
+ renderWake();
+}));
 addEventListener('scroll',queueUI,{passive:true});addEventListener('resize',queueUI);reduced.addEventListener('change',queueUI);
 syncMemory();document.body.classList.add('story-enhanced');refreshUI();
 

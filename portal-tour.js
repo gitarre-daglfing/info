@@ -1,13 +1,11 @@
 (() => {
-  const button=document.querySelector('[data-auto-tour]');
-  if(!button)return;
   const chapters=[...document.querySelectorAll('.story-frame')];
   const finale=document.querySelector('.portal-finale');
   const hint=document.querySelector('[data-portal-continue]');
   const hintLabel=hint?.querySelector('[data-continue-label]');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const duration=2400;
-  let automatic=button.getAttribute('aria-pressed')==='true',timer=0,animation=0,moving=false,ready=document.readyState==='complete';
+  let automatic=true,timer=0,animation=0,moving=false,ready=document.readyState==='complete';
   function syncHint(){
     const arrived=document.body.classList.contains('portal-arrived');
     if(hint){hint.hidden=arrived;hint.disabled=moving;}
@@ -20,9 +18,6 @@
     if(automatic&&ready&&!document.hidden&&!moving)timer=setTimeout(advance,3000);
   }
   function update(){
-    button.setAttribute('aria-pressed',String(automatic));
-    button.textContent=automatic?'Autoscroll ausschalten':'Autoscroll einschalten';
-    button.title=automatic?'Nach 3 Sekunden wird langsam zum nächsten Bild gewechselt.':'Automatische Bildanzeige einschalten; jedes Bild bleibt 3 Sekunden lang sichtbar.';
     schedule();syncHint();
   }
   function manual(){automatic=false;update();}
@@ -57,10 +52,14 @@
     if(next===finale)manual();
     navigate(next);
   }
-  button.addEventListener('click',()=>{automatic=!automatic;update();});
   hint?.addEventListener('click',()=>{manual();advance();});
+  document.querySelector('[data-tour-start]')?.addEventListener('click',()=>{
+    automatic=true;update();
+    history.replaceState(null,'','#frame-0');
+    navigate(chapters[0]);
+  });
   document.addEventListener('click',event=>{
-    if(event.target.closest?.('[data-auto-tour]'))return;
+    if(event.target.closest?.('[data-tour-start]'))return;
     manual();
     const anchor=event.target.closest?.('a[href^="#frame-"],a[href="#gallery-invitation"],a[href="#portal-prologue"]');
     if(anchor&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey){
@@ -78,7 +77,6 @@
   addEventListener('wheel',takeOver,{passive:true});
   addEventListener('touchmove',takeOver,{passive:true});
   document.addEventListener('keydown',event=>{
-    if(event.target.closest?.('[data-auto-tour]'))return;
     if(['Tab','Enter',' ','Escape','ArrowDown','ArrowUp','PageDown','PageUp','Home','End'].includes(event.key))takeOver();
   });
   document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelMotion();schedule();});

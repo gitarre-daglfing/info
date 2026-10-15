@@ -38,34 +38,37 @@
     dispatchEvent(new Event('resize'));
     session.focus?.focus({preventScroll:true});
   }
-  expand?.addEventListener('click',()=>{
+  function enterFullscreen(preview,native=false){
     if(fullscreen)return;
-    const phase=Number(document.body.style.getPropertyValue('--story-phase')||document.body.dataset.chapter||0);
-    const index=Math.min(previews.length-1,Math.max(0,Math.round(phase)));
-    const preview=previews[index];if(!preview)return;
+    if(!preview)return;
     const world=preview.closest('.story-world');
     const bar=document.createElement('div');bar.className='portal-fullscreen-bar';
     const title=document.createElement('span');title.textContent=preview.getAttribute('aria-label')||'Aktuelle Seite';
-    const close=document.createElement('button');close.type='button';close.textContent='Schließen ×';close.addEventListener('click',leaveFullscreen);
+    const close=document.createElement('button');close.type='button';close.textContent='Schließen ×';close.addEventListener('click',event=>{event.stopPropagation();leaveFullscreen();});
     bar.append(title,close);preview.prepend(bar);
     const siblings=[...document.body.children].filter(node=>!node.contains(world)&&node!==world).map(node=>[node,node.inert]);
     fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false};
     const session=fullscreen;
     siblings.forEach(([node])=>{node.inert=true;});
     preview.hidden=false;preview.inert=false;preview.classList.add('is-frame-fullscreen');
-    document.body.classList.add('portal-fullscreen');expand.setAttribute('aria-expanded','true');close.focus({preventScroll:true});
+    document.body.classList.add('portal-fullscreen');expand?.setAttribute('aria-expanded','true');close.focus({preventScroll:true});
     dispatchEvent(new Event('resize'));
     // Keep the existing iframe in place: notes, book pages and gallery state survive.
-    // The viewport-sized mode also works when embedded browsers deny native fullscreen.
-    if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
+    if(native&&document.documentElement.requestFullscreen){
       session.native=true;
       try{
-        Promise.resolve(document.documentElement.requestFullscreen()).then(()=>{
-          if(fullscreen!==session&&document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
-        }).catch(()=>{session.native=false;});
+        Promise.resolve(document.documentElement.requestFullscreen()).catch(()=>{session.native=false;});
       }catch{session.native=false;}
     }
+  }
+  expand?.addEventListener('click',()=>{
+    const phase=Number(document.body.style.getPropertyValue('--story-phase')||document.body.dataset.chapter||0);
+    const index=Math.min(previews.length-1,Math.max(0,Math.round(phase)));
+    enterFullscreen(previews[index],true);
   });
+  previews.forEach(preview=>preview.addEventListener('click',event=>{
+    if(!event.target.closest('.portal-fullscreen-bar'))enterFullscreen(preview);
+  }));
   document.addEventListener('fullscreenchange',()=>{
     if(fullscreen?.native&&!document.fullscreenElement)leaveFullscreen();
   });
@@ -78,7 +81,13 @@
       const child=preview.querySelector('iframe').contentDocument;
       child.addEventListener('keydown',escape);
       const manual=()=>dispatchEvent(new Event('portal-user-interaction'));
-      child.addEventListener('click',manual,true);
+      child.addEventListener('click',event=>{
+        manual();
+        if(fullscreen?.preview===preview)return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        enterFullscreen(preview);
+      },true);
       child.addEventListener('keydown',manual,true);
     }catch{}
   }));
