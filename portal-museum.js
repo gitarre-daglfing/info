@@ -45,8 +45,8 @@
     const preview=previews[index];if(!preview)return;
     const world=preview.closest('.story-world');
     const bar=document.createElement('div');bar.className='portal-fullscreen-bar';
-    const title=document.createElement('span');title.textContent=preview.getAttribute('aria-label')||'当前画作';
-    const close=document.createElement('button');close.type='button';close.textContent='退出全屏 ×';close.addEventListener('click',leaveFullscreen);
+    const title=document.createElement('span');title.textContent=preview.getAttribute('aria-label')||'Aktuelle Seite';
+    const close=document.createElement('button');close.type='button';close.textContent='Schließen ×';close.addEventListener('click',leaveFullscreen);
     bar.append(title,close);preview.prepend(bar);
     const siblings=[...document.body.children].filter(node=>!node.contains(world)&&node!==world).map(node=>[node,node.inert]);
     fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false};
