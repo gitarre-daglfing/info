@@ -31,10 +31,10 @@ const wallLabels=[...document.querySelectorAll('[data-wall-label]')];
 let messageTimer;
 function notify(message){clearTimeout(messageTimer);status.textContent=message;messageTimer=setTimeout(()=>{status.textContent='';},4500);}
 function syncMemory(){
- choiceBadges.forEach(e=>e.textContent=state.choice||'还没有选择');
- document.querySelectorAll('[data-carry-letter]').forEach(e=>e.textContent=state.letter||'你还没有留下文字。可以回到第一张信纸，写下想告诉未来的话。');
+ choiceBadges.forEach(e=>e.textContent=state.choice||'Noch nichts ausgewählt');
+ document.querySelectorAll('[data-carry-letter]').forEach(e=>e.textContent=state.letter||'Du hast noch nichts geschrieben. Du kannst zum ersten Blatt Papier zurückkehren und dort aufschreiben, was du der Zukunft mitteilen möchtest.');
  document.querySelectorAll('[data-count]').forEach(e=>e.textContent=String(state.collected.size));
- document.querySelectorAll('[data-boot-report]').forEach(e=>e.textContent=state.booted.size?[...state.booted].map(n=>'✓ '+n+' / 本地演示已启动').join('\n'):'尚未启动子系统。可以回到开场，选择要唤醒的模块。');
+ document.querySelectorAll('[data-boot-report]').forEach(e=>e.textContent=state.booted.size?[...state.booted].map(n=>'✓ '+n+' / The local demo has started.').join('\n'):'Das Subsystem wurde noch nicht gestartet. Sie können zum Anfang zurückkehren und das Modul auswählen, das Sie aktivieren möchten.');
  document.querySelectorAll('[data-memory-point]').forEach(e=>e.classList.toggle('is-lit',state.collected.has(e.dataset.memoryPoint)));
  document.querySelectorAll('[data-reading]').forEach(e=>e.textContent=Math.round(state.value*100)+'%');
  const reward=document.querySelector('[data-reward-open]');if(reward)reward.disabled=state.collected.size<3;
@@ -91,8 +91,8 @@ function updateUI(){
  });
  stops.forEach((b,i)=>{b.setAttribute('aria-current',i===active?'step':'false');});
  footerLabel.textContent=String(active+1).padStart(2,'0')+' / '+(starry?wallLabels[active]?.querySelector('h2')?.textContent||story.chapters[active][0]:story.chapters[active][0]);
- previousButton.disabled=active===0;nextButton.textContent=active===lastChapter?'重新出发 ↻':nextLabel+' →';
- if(portalFinale&&active===lastChapter)nextButton.textContent='走向画廊 ↓';
+ previousButton.disabled=active===0;nextButton.textContent=active===lastChapter?'Neuanfang ↻':nextLabel+' →';
+ if(portalFinale&&active===lastChapter)nextButton.textContent='Auf dem Weg zur Galerie ↓';
  const route=document.querySelector('.route-ink');if(route){const length=route.getTotalLength();route.style.strokeDasharray=String(length);route.style.strokeDashoffset=String(length*(1-progress));}
  const traveller=document.querySelector('.route-traveller');if(traveller&&route){const p=route.getPointAtLength(route.getTotalLength()*progress);traveller.setAttribute('cx',p.x);traveller.setAttribute('cy',p.y);}
  renderWake();
@@ -110,7 +110,7 @@ previousButton.addEventListener('click',()=>go(active-1));nextButton.addEventLis
 });
 stops.forEach((button,i)=>button.addEventListener('click',()=>go(i)));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(Number(b.dataset.go))));
-document.querySelector('[data-pause]').addEventListener('click',e=>{state.paused=!state.paused;e.currentTarget.setAttribute('aria-pressed',String(state.paused));if(starry)window.museumStarryFlowPause?.(state.paused);e.currentTarget.textContent=state.paused?'继续环境动态 ▷':'暂停环境动态 Ⅱ';renderWake();});
+document.querySelector('[data-pause]').addEventListener('click',e=>{state.paused=!state.paused;e.currentTarget.setAttribute('aria-pressed',String(state.paused));if(starry)window.museumStarryFlowPause?.(state.paused);e.currentTarget.textContent=state.paused?'Animation starten ▷':'Animation pausieren Ⅱ';renderWake();});
 addEventListener('scroll',queueUI,{passive:true});addEventListener('resize',queueUI);reduced.addEventListener('change',queueUI);
 syncMemory();document.body.classList.add('story-enhanced');refreshUI();
 
