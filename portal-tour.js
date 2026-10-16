@@ -9,7 +9,7 @@
   function syncHint(){
     const arrived=document.body.classList.contains('portal-arrived');
     if(hint){hint.hidden=arrived;hint.disabled=moving;}
-    if(hintLabel)hintLabel.textContent=moving?'Weiter zum nächsten Bild…':'Klicken Sie außerhalb des Bildrahmens, um zum nächsten Bild zu gelangen';
+    if(hintLabel)hintLabel.textContent=moving?'Weiter zum nächsten Bild…':'Wische nach oben, um zum nächsten Bild zu gelangen';
     document.body.classList.toggle('portal-travelling',moving);
   }
   function schedule(){
