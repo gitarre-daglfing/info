@@ -10,8 +10,11 @@ assert.match(entry,/class="nav-options"[^]*?<a href="#portal-prologue">Start<\/a
 assert.match(entry,/<div class="nav-options" id="page-navigation">/);
 assert.match(entry,/<button aria-controls="page-navigation" aria-expanded="false" aria-label="Seitenmenü öffnen" class="mobile-menu-toggle" data-mobile-menu-toggle type="button">/);
 assert.match(entry,/<button class="portal-enter" data-tour-start type="button">Scrolle nach unten und tauche ein/);
-assert.match(entry,/<div class="portal-prologue-heading"><p class="portal-prologue-kicker">PAUL JES - MUSIKUNTRRICHT<\/p><img alt="" aria-hidden="true" class="portal-prologue-placeholder" src="jubilaeum\.svg">/);
-assert.ok(fs.statSync('jubilaeum.svg').size>0);
+assert.match(entry,/<div class="portal-prologue-heading"><p class="portal-prologue-kicker">PAUL JES - MUSIKUNTRRICHT<\/p><img alt="" aria-hidden="true" class="portal-prologue-placeholder" src="jubilaeum\.png" width="1536" height="1024">/);
+assert.ok(fs.statSync('jubilaeum.png').size>0);
+assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-placeholder\{--anniversary-image-rotation:4deg;position:absolute;top:50%;right:-16px;width:100px;height:auto;aspect-ratio:3\/2;object-fit:contain;color:#d5b979;transform:translateY\(-50%\) rotate\(var\(--anniversary-image-rotation\)\)/);
+assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-placeholder\{top:-62px;right:0;width:70px\}/);
+assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-kicker\{margin:0;[^}]*text-align:center/);
 assert.match(entry,/<button class="portal-enter" data-tour-start type="button">Scrolle nach unten und tauche ein<span aria-hidden="true">↓<\/span><\/button>\s*<div class="portal-prologue-pause story-directions"><button data-pause="" type="button" aria-pressed="false">Animation pausieren Ⅱ<\/button><\/div>/);
 assert.equal((entry.match(/data-pause=""/g)||[]).length,2);
 assert.match(entry,/<button aria-pressed="false" data-pause="" type="button">Animation pausieren Ⅱ<\/button>/);
