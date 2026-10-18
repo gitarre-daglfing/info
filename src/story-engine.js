@@ -3,7 +3,7 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {createWorld} from './visual-world-models.js';
 import {storyPose,framePose} from './story-motion.js';
 import {attachPortalOcclusion,updatePortalFade,PORTAL_SURFACE} from './portal-occlusion.js';
-import {decorateStarryFrames,arrangeStarryFrames} from './portal-starry.js';
+import {arrangeStarryFrames} from './portal-starry.js';
 
 const key=document.body.dataset.story;
 const config=globalThis.MUSEUM_WORLDS.find(w=>w.key===key);
@@ -43,7 +43,7 @@ function syncMemory(){
  const finalStatus=document.querySelector('[data-final-status]');if(finalStatus)finalStatus.textContent=state.collected.size>=3?'三颗星都到齐了，包裹可以打开啦。':`包裹里有 ${state.collected.size} / 3 颗星，还可以回到沿途寻找。`;
  document.body.style.setProperty('--user-value',state.value);renderWake();
 }
-function go(index){index=clamp(index,0,lastChapter);if(starry&&window.museumPortalNavigate){window.museumPortalNavigate(frames[index]);return;}const top=(integrated||reduced.matches)?scrollY+frames[index].getBoundingClientRect().top-90:(document.documentElement.scrollHeight-innerHeight)*index/lastChapter;scrollTo({top,behavior:reduced.matches?'instant':'smooth'});}
+function go(index){if(index<0&&starry&&portalPrologue){if(window.museumPortalNavigate){window.museumPortalNavigate(portalPrologue);return;}scrollTo({top:scrollY+portalPrologue.getBoundingClientRect().top-90,behavior:reduced.matches?'instant':'smooth'});return;}index=clamp(index,0,lastChapter);if(starry&&window.museumPortalNavigate){window.museumPortalNavigate(frames[index]);return;}const top=(integrated||reduced.matches)?scrollY+frames[index].getBoundingClientRect().top-90:(document.documentElement.scrollHeight-innerHeight)*index/lastChapter;scrollTo({top,behavior:reduced.matches?'instant':'smooth'});}
 function updateUI(){
  uiFrame=0;
  const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);progress=clamp(scrollY/max,0,1);
@@ -92,7 +92,8 @@ function updateUI(){
   f.inert=i!==active;f.setAttribute('aria-hidden',String(i!==active));
  });
  let activeStop=active+1;
- if(portalPrologue&&frames[0].getBoundingClientRect().top>innerHeight*.35)activeStop=0;
+ const beforeFirstFrame=Boolean(portalPrologue&&frames[0].getBoundingClientRect().top>innerHeight*.35);
+ if(beforeFirstFrame)activeStop=0;
  if(portalFinale&&portalFinale.getBoundingClientRect().top<=innerHeight*.35)activeStop=stops.length-1;
  stops.forEach((button,index)=>button.setAttribute('aria-current',index===activeStop?'step':'false'));
  let currentPageLink=pageLinks[0];
@@ -102,7 +103,7 @@ function updateUI(){
  });
  pageLinks.forEach(link=>link.setAttribute('aria-current',link===currentPageLink?'location':'false'));
  footerLabel.textContent=String(active+1).padStart(2,'0')+' / '+(starry?wallLabels[active]?.querySelector('h2')?.textContent||story.chapters[active][0]:story.chapters[active][0]);
- previousButton.disabled=active===0;nextButton.textContent=active===lastChapter?'Neuanfang ↻':nextLabel+' →';
+ previousButton.disabled=(active===0&&!portalPrologue)||beforeFirstFrame;nextButton.textContent=active===lastChapter?'Neuanfang ↻':nextLabel+' →';
  if(portalFinale&&active===lastChapter)nextButton.textContent='Weiter →';
  const route=document.querySelector('.route-ink');if(route){const length=route.getTotalLength();route.style.strokeDasharray=String(length);route.style.strokeDashoffset=String(length*(1-progress));}
  const traveller=document.querySelector('.route-traveller');if(traveller&&route){const p=route.getPointAtLength(route.getTotalLength()*progress);traveller.setAttribute('cx',p.x);traveller.setAttribute('cy',p.y);}
@@ -115,7 +116,7 @@ function recoverReading(error){
 }
 function refreshUI(){try{updateUI();}catch(error){uiFrame=0;recoverReading(error);}}
 function queueUI(){if(!uiFrame)uiFrame=requestAnimationFrame(refreshUI);}
-previousButton.addEventListener('click',()=>go(active-1));nextButton.addEventListener('click',()=>{
+previousButton.addEventListener('click',()=>go(active===0&&portalPrologue?-1:active-1));nextButton.addEventListener('click',()=>{
  if(portalFinale&&active===lastChapter){if(window.museumPortalNavigate)window.museumPortalNavigate(portalFinale);else scrollTo({top:scrollY+portalFinale.getBoundingClientRect().top-90,behavior:reduced.matches?'instant':'smooth'});return;}
  go(active===lastChapter?0:active+1);
 });
@@ -149,7 +150,7 @@ try{
  const sunlight=new T.DirectionalLight('#fff3df',4);sunlight.position.set(-4,6,8);scene.add(sunlight);
  const fill=new T.DirectionalLight('#bfdcff',2.5);fill.position.set(4,-2,5);scene.add(fill);scene.add(new T.HemisphereLight(0xffffff,0x52677a,2));
  const {root,update}=createWorld(key,config.accent);group.add(root);
- if(starry){decorateStarryFrames(root,frames.length);scene.environmentIntensity=.35;}
+ if(starry)scene.environmentIntensity=.35;
  if(integrated&&key==='portal')attachPortalOcclusion(root.children);
  const fullCounts=new Map();root.traverse(o=>{if(o.geometry)fullCounts.set(o.geometry,o.geometry.drawRange.count===Infinity?(o.geometry.index?.count||o.geometry.attributes.position.count):o.geometry.drawRange.count);});
  const initialParts=root.children.map(o=>({position:o.position.clone(),scale:o.scale.clone()}));

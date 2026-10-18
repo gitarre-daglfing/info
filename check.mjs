@@ -24,6 +24,9 @@ assert.match(entry,/class="story-stop" data-stop-target="portal-prologue"[^]*?<s
 assert.match(entry,/class="story-stop" data-stop-target="gallery-invitation"[^]*?<span>Finale<\/span>/);
 assert.match(entry,/<a class="pill" href="kontakt\.html" aria-label="Kontakt"><span class="pill-label">Kontakt<\/span><span class="pill-arrow" aria-hidden="true">↗<\/span><\/a>/);
 const templateCss=fs.readFileSync('template.css','utf8');
+const portalCss=fs.readFileSync('portal-music.css','utf8');
+assert.match(portalCss,/\.museum-edition \.portal-preview iframe\{[^}]*pointer-events:none/);
+assert.match(portalCss,/\.museum-edition \.is-frame-fullscreen iframe\{[^}]*pointer-events:auto/);
 assert.match(templateCss,/@media\(max-width:780px\)\{[^}]*\.journey-integrated \.nav \.links\{display:flex/);
 assert.match(templateCss,/@media\(max-width:400px\)\{\.journey-integrated \.nav \.pill-label\{display:none\}\.journey-integrated \.nav \.pill::before\{content:"📧"\}/);
 assert.match(entry,/<a class="portal-gallery-entry" href="kontakt\.html">/);
@@ -45,5 +48,5 @@ const tour=fs.readFileSync('portal-tour.js','utf8');
 assert.ok(tour.includes('prefers-reduced-motion'));
 assert.ok(tour.includes('portal-user-interaction'));
 assert.ok(!entry.includes('data-portal-continue'));
-for(const name of ['assets/music.js','assets/starry-gallery/starry-night-mobile.webp','assets/starry-gallery/starry-flow-map.png','assets/starry-gallery/wood/oak-veneer.webp','assets/THREE-LICENSE.txt','assets/starry-gallery/INTERACTIVE-STARRY-NIGHT-LICENSE.txt'])assert.ok(fs.statSync(name).size>0);
+for(const name of ['assets/music.js','assets/starry-gallery/starry-night-mobile.webp','assets/starry-gallery/starry-flow-map.png','assets/THREE-LICENSE.txt','assets/starry-gallery/INTERACTIVE-STARRY-NIGHT-LICENSE.txt'])assert.ok(fs.statSync(name).size>0);
 console.log('Passed: four exhibits, unique fictional content, local assets, music bundle and license presence.');
