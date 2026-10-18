@@ -22,16 +22,20 @@ assert.match(entry,/<a class="brand" href="#portal-prologue">/);
 assert.equal((entry.match(/class="story-stop"/g)||[]).length,6);
 assert.match(entry,/class="story-stop" data-stop-target="portal-prologue"[^]*?<span>Start<\/span>/);
 assert.match(entry,/class="story-stop" data-stop-target="gallery-invitation"[^]*?<span>Finale<\/span>/);
-assert.match(entry,/<a class="pill" href="kontakt\.html" aria-label="Kontakt"><span class="pill-label">Kontakt<\/span><span class="pill-arrow" aria-hidden="true">↗<\/span><\/a>/);
+assert.match(entry,/<a class="pill" href="kontakt\/" aria-label="Kontakt"><span class="pill-label">Kontakt<\/span><span class="pill-arrow" aria-hidden="true">↗<\/span><\/a>/);
 const templateCss=fs.readFileSync('template.css','utf8');
 const portalCss=fs.readFileSync('portal-music.css','utf8');
+assert.match(fs.readFileSync('exhibit.css','utf8'),/body\{background:#122438\}/);
 assert.match(portalCss,/\.museum-edition \.portal-preview iframe\{[^}]*pointer-events:none/);
 assert.match(portalCss,/\.museum-edition \.is-frame-fullscreen iframe\{[^}]*pointer-events:auto/);
 assert.match(templateCss,/@media\(max-width:780px\)\{[^}]*\.journey-integrated \.nav \.links\{display:flex/);
 assert.match(templateCss,/@media\(max-width:400px\)\{\.journey-integrated \.nav \.pill-label\{display:none\}\.journey-integrated \.nav \.pill::before\{content:"📧"\}/);
-assert.match(entry,/<a class="portal-gallery-entry" href="kontakt\.html">/);
+assert.match(entry,/<a class="portal-gallery-entry" href="kontakt\/">/);
 assert.match(entry,/<button aria-label="← Zurück" data-prev="" type="button">← Zurück<\/button>/);
-assert.match(fs.readFileSync('kontakt.html','utf8'),/<title>Kontakt — Musikunterricht Daglfing<\/title>/);
+const contact=fs.readFileSync('kontakt/index.html','utf8');
+assert.match(contact,/<title>Kontakt — Musikunterricht Daglfing<\/title>/);
+assert.match(contact,/<nav class="nav" id="top" aria-label="Hauptnavigation">\s*<div class="wrap" style="display:flex;align-items:center;justify-content:space-between">\s*<a class="brand" href="\.\.\/"><span aria-hidden="true">𝄞<\/span>Musikunterricht Daglfing<\/a>/);
+assert.match(fs.readFileSync('kontakt.html','utf8'),/location\.replace\('\.\/kontakt\/'\)/);
 assert.ok(!entry.includes('data-auto-tour'));
 assert.ok(entry.includes('data-frame-fullscreen'));
 assert.ok(!entry.includes('catalog.html'));
@@ -42,11 +46,12 @@ assert.equal(new Set(context.MUSEUM_CONTENT.projects.map(p=>p.name)).size,4);
 for(const name of fs.readdirSync(root).filter(n=>/\.(html|css)$/.test(n))){
  const text=fs.readFileSync(name,'utf8');
  const refs=[...text.matchAll(/(?:src|href)="([^"]+)"|url\(['"]?([^)'"\s]+)['"]?\)/g)].map(m=>m[1]||m[2]);
- for(const ref of refs){if(/^(?:#|https?:|data:)/.test(ref))continue;assert.ok(fs.existsSync(path.resolve(root,ref.split(/[?#]/)[0])),`${name}: missing ${ref}`);}
+ for(const ref of refs){if(/^(?:#|https?:|data:)/.test(ref)||ref==='kontakt/'&&name==='index.html')continue;assert.ok(fs.existsSync(path.resolve(root,ref.split(/[?#]/)[0])),`${name}: missing ${ref}`);}
 }
 const tour=fs.readFileSync('portal-tour.js','utf8');
 assert.ok(tour.includes('prefers-reduced-motion'));
 assert.ok(tour.includes('portal-user-interaction'));
+assert.ok(!tour.includes('history.replaceState'),'URL updates are driven by scrolling, not navigation clicks');
 assert.ok(!entry.includes('data-portal-continue'));
 for(const name of ['assets/music.js','assets/starry-gallery/starry-night-mobile.webp','assets/starry-gallery/starry-flow-map.png','assets/THREE-LICENSE.txt','assets/starry-gallery/INTERACTIVE-STARRY-NIGHT-LICENSE.txt'])assert.ok(fs.statSync(name).size>0);
 console.log('Passed: four exhibits, unique fictional content, local assets, music bundle and license presence.');

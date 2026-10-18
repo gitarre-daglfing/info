@@ -64,7 +64,6 @@
   }
   document.querySelector('[data-tour-start]')?.addEventListener('click',()=>{
     automatic=true;update();
-    history.replaceState(null,'','#frame-0');
     navigate(chapters[0]);
   });
   document.addEventListener('click',event=>{
@@ -73,7 +72,7 @@
     if(anchor&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey){
       manual();
       const target=document.getElementById(anchor.hash.slice(1));
-      if(target){event.preventDefault();history.replaceState(null,'',anchor.hash);navigate(target);}
+      if(target){event.preventDefault();navigate(target);}
       return;
     }
     if(event.button!==0)return;

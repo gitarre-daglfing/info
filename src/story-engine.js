@@ -16,7 +16,7 @@ const frames=[...document.querySelectorAll('.story-frame')];
 const lastChapter=frames.length-1;
 const stops=[...document.querySelectorAll('.story-stop')];
 const state={value:.5,choice:'',letter:'',collected:new Set(),booted:new Set(),paused:false};
-let progress=0,portalPhase=0,portalEntrance=1,active=0,uiFrame=0,renderWake=()=>{};
+let progress=0,portalPhase=0,portalEntrance=1,active=0,uiFrame=0,renderWake=()=>{},routeScrollY=scrollY;
 const clamp=T.MathUtils.clamp;
 const footerLabel=document.querySelector('[data-stop-label]');
 const status=document.querySelector('[data-live-status]');
@@ -101,6 +101,11 @@ function updateUI(){
   const target=document.getElementById(link.hash.slice(1));
   if(target&&target.getBoundingClientRect().top<=innerHeight*.35)currentPageLink=link;
  });
+ if(scrollY!==routeScrollY){
+  routeScrollY=scrollY;
+  const route=currentPageLink.hash==='#portal-prologue'?location.pathname+location.search:currentPageLink.hash;
+  if(location.pathname+location.search+location.hash!==route)history.replaceState(history.state,'',route);
+ }
  pageLinks.forEach(link=>link.setAttribute('aria-current',link===currentPageLink?'location':'false'));
  footerLabel.textContent=String(active+1).padStart(2,'0')+' / '+(starry?wallLabels[active]?.querySelector('h2')?.textContent||story.chapters[active][0]:story.chapters[active][0]);
  previousButton.disabled=(active===0&&!portalPrologue)||beforeFirstFrame;nextButton.textContent=active===lastChapter?'Neuanfang ↻':nextLabel+' →';
