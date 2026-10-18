@@ -75,7 +75,7 @@ if(section==='0'){
  });
 }else{
  heading('The person\nbehind the ideas.');paragraph('Replace this sample profile with your own story.');
- const card=el('section',null,'profile');card.append(el('small','CREATOR / DEMO PROFILE'),el('span','✦','seal'),el('h2',data.name),el('p',data.role));
+ const card=el('section',null,'profile');card.append(el('small','CREATOR / DEMO PROFILE'),el('span','𝄞','seal'),el('h2',data.name),el('p',data.role));
  const list=el('ul');data.skills.forEach(s=>list.append(el('li',s)));card.append(list,el('small','EXAMPLE CONTENT · NO REAL BIOGRAPHY'));app.append(card);
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');card.addEventListener('pointermove',e=>{if(reduced.matches)return;const r=card.getBoundingClientRect();card.style.transform=`perspective(900px) rotateX(${-(e.clientY-r.top-r.height/2)/35}deg) rotateY(${(e.clientX-r.left-r.width/2)/35}deg)`;});card.addEventListener('pointerleave',()=>card.style.transform='');
 }
