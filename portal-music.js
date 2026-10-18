@@ -1,6 +1,6 @@
 (() => {
   const previews=[...document.querySelectorAll('[data-portal-preview]')];
-  const width=760,height=960;
+  const width=1160,height=960;
   let loadedChapter=-1;
   function loadNearby(index){
     index=Math.max(0,Math.min(previews.length-1,index));
@@ -10,11 +10,12 @@
       const iframe=previews[next]?.querySelector('iframe');
       if(iframe&&!iframe.hasAttribute('src')){
         iframe.loading='eager';
-        iframe.src=`portal-exhibit-${next}.html?v=portal-cloud-art-1`;
+        iframe.src=`page-${next+1}.html?v=portal-cloud-art-1`;
       }
     }
   }
-  loadNearby(Number(location.hash.match(/^#frame-(\d+)$/)?.[1]||0));
+  const initialFrame=document.getElementById(location.hash.slice(1))?.closest('.story-frame');
+  loadNearby(Number(initialFrame?.dataset.siteChapter||0));
   const expand=document.querySelector('[data-frame-fullscreen]');
   let fullscreen=null;
   function leaveFullscreen(){
@@ -40,9 +41,8 @@
     if(!preview)return;
     const world=preview.closest('.story-world');
     const bar=document.createElement('div');bar.className='portal-fullscreen-bar';
-    const title=document.createElement('span');title.textContent=preview.getAttribute('aria-label')||'Aktuelle Seite';
     const close=document.createElement('button');close.type='button';close.textContent='Schließen ×';close.addEventListener('click',event=>{event.stopPropagation();leaveFullscreen();});
-    bar.append(title,close);preview.prepend(bar);
+    bar.append(close);preview.prepend(bar);
     const siblings=[...document.body.children].filter(node=>!node.contains(world)&&node!==world).map(node=>[node,node.inert]);
     fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false,scrollY:window.scrollY,scrollTop:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top')?{value:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top'),priority:document.body.style.getPropertyPriority('--portal-fullscreen-scroll-top')}:null};
     const session=fullscreen;

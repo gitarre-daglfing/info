@@ -6,7 +6,13 @@ const root=process.cwd();
 const entry=fs.readFileSync('index.html','utf8');
 assert.equal((entry.match(/data-exhibit-frame=/g)||[]).length,4);
 assert.equal((entry.match(/class="nav-options"/g)||[]).length,1);
-assert.match(entry,/class="nav-options"[^]*?<a href="#portal-prologue">Start<\/a>[^]*?<a href="#gallery-invitation">Finale<\/a>/);
+assert.match(entry,/class="nav-options"[^]*?<a href="#portal-prologue">Start<\/a>[^]*?<a href="#invitation">Finale<\/a>/);
+assert.match(entry,/id="unterricht"[^]*id="instrumente"[^]*id="galerie"[^]*id="frame-4"[^]*id="invitation"/);
+assert.match(entry,/id="title-0">Musikunterricht in Daglfing/);
+assert.match(entry,/id="title-1">Das passende Instrument/);
+assert.match(entry,/id="title-2">Galerie/);
+assert.match(entry,/id="title-3">Über den Unterricht/);
+assert.doesNotMatch(entry,/Was soll hier stehen|Hier steht was|Text von hier|Frameparagraph|Titel \?|Text Seite [1-4]|Überschrift Seite/);
 assert.match(entry,/<div class="nav-options" id="page-navigation">/);
 assert.match(entry,/<button aria-controls="page-navigation" aria-expanded="false" aria-label="Seitenmenü öffnen" class="mobile-menu-toggle" data-mobile-menu-toggle type="button">/);
 assert.match(entry,/<button class="portal-enter" data-tour-start type="button">Scrolle nach unten und tauche ein/);
@@ -21,11 +27,13 @@ assert.match(entry,/<button aria-pressed="false" data-pause="" type="button">Ani
 assert.match(entry,/<a class="brand" href="#portal-prologue">/);
 assert.equal((entry.match(/class="story-stop"/g)||[]).length,6);
 assert.match(entry,/class="story-stop" data-stop-target="portal-prologue"[^]*?<span>Start<\/span>/);
-assert.match(entry,/class="story-stop" data-stop-target="gallery-invitation"[^]*?<span>Finale<\/span>/);
+assert.match(entry,/class="story-stop" data-stop-target="invitation"[^]*?<span>Finale<\/span>/);
 assert.match(entry,/<a class="pill" href="kontakt\/" aria-label="Kontakt"><span class="pill-label">Kontakt<\/span><span class="pill-arrow" aria-hidden="true">↗<\/span><\/a>/);
 const templateCss=fs.readFileSync('template.css','utf8');
 const portalCss=fs.readFileSync('portal-music.css','utf8');
-assert.match(fs.readFileSync('exhibit.css','utf8'),/body\{background:#122438\}/);
+assert.match(fs.readFileSync('pages.css','utf8'),/body\{background:#122438\}/);
+assert.match(fs.readFileSync('pages.css','utf8'),/html,body\{scrollbar-width:none;-ms-overflow-style:none\}/);
+assert.match(fs.readFileSync('pages.css','utf8'),/html::\-webkit-scrollbar,body::\-webkit-scrollbar\{display:none\}/);
 assert.match(portalCss,/\.museum-edition \.portal-preview iframe\{[^}]*pointer-events:none/);
 assert.match(portalCss,/\.museum-edition \.is-frame-fullscreen iframe\{[^}]*pointer-events:auto/);
 assert.match(templateCss,/@media\(max-width:780px\)\{[^}]*\.journey-integrated \.nav \.links\{display:flex/);
@@ -39,9 +47,11 @@ assert.match(fs.readFileSync('kontakt.html','utf8'),/location\.replace\('\.\/kon
 assert.ok(!entry.includes('data-auto-tour'));
 assert.ok(entry.includes('data-frame-fullscreen'));
 assert.ok(!entry.includes('catalog.html'));
-const context={};vm.runInNewContext(fs.readFileSync('content.js','utf8'),context);
+const context={};vm.runInNewContext(fs.readFileSync('pages-content.js','utf8'),context);
 assert.equal(context.MUSEUM_CONTENT.projects.length,4);
 assert.equal(new Set(context.MUSEUM_CONTENT.projects.map(p=>p.name)).size,4);
+assert.match(fs.readFileSync('pages.js','utf8'),/assets\/cover\/cover-\$\{i\+1\}\.jpg/);
+for(let i=1;i<=4;i++)assert.ok(fs.statSync(`assets/cover/cover-${i}.jpg`).size>0);
 // Catch broken relative asset references before exporting under a subdirectory.
 for(const name of fs.readdirSync(root).filter(n=>/\.(html|css)$/.test(n))){
  const text=fs.readFileSync(name,'utf8');
