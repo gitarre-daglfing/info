@@ -68,7 +68,7 @@
   });
   document.addEventListener('click',event=>{
     if(event.target.closest?.('[data-tour-start]'))return;
-    const anchor=event.target.closest?.('a[href^="#frame-"],a[href="#gallery-invitation"],a[href="#portal-prologue"]');
+    const anchor=event.target.closest?.('.nav-options a[href^="#"]');
     if(anchor&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey){
       manual();
       const target=document.getElementById(anchor.hash.slice(1));

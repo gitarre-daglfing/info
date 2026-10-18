@@ -73,7 +73,7 @@
 .starry-edition.portal-entering .story-bottom{visibility:hidden;pointer-events:none}
 .starry-edition .portal-wall-labels{display:none}
 .starry-edition.story-webgl .portal-wall-labels{display:block;position:fixed;z-index:85;left:clamp(20px,4vw,64px);bottom:112px;width:260px;pointer-events:none}
-.starry-edition .portal-wall-label{position:absolute;bottom:0;left:0;width:100%;padding:18px 20px;border-left:2px solid #c7a66c;opacity:0;background:linear-gradient(90deg,#091c31dc,#0b2237a6);box-shadow:0 8px 35px #06142624}
+.starry-edition .portal-wall-label{position:absolute;bottom:0;left:0;width:100%;padding:18px 20px;border-left:2px solid #c7a66c;opacity:0;background:rgba(16,36,56,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 8px 35px #06142624}
 .starry-edition .portal-wall-label small{font:9px/1.6 Consolas,monospace;letter-spacing:.2em;color:#d2b47c}
 .starry-edition .portal-wall-label h2{font:400 22px/1.4 Wenkai,serif;color:#f5e5c7;margin:8px 0}
 .starry-edition .portal-wall-label p{font:12px/1.8 Wenkai,serif;color:#c9d4d6;margin:0}

@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {PORTAL_SURFACE} from './portal-occlusion.js';
 
 export const STARRY_STOPS=[[-1.1,.35],[1.35,-.25],[-1.35,.15],[1.1,.48],[-.85,-.28],[.35,.18],[1.2,0]];
 
@@ -25,7 +26,7 @@ export function arrangeStarryFrames(root,group,camera,phase,time=0,viewportHeigh
  const bottomInset=Math.min(118,viewportHeight*.2);
  const usableHeight=Math.max(.45,1-(topInset+bottomInset)/viewportHeight);
  const tangent=Math.tan(T.MathUtils.degToRad(camera.fov/2));
- const distance=Math.max(2.88/(tangent*usableHeight),2.23/(tangent*camera.aspect*.90))+.3;
+ const distance=Math.max(PORTAL_SURFACE.halfHeight/(tangent*usableHeight),PORTAL_SURFACE.halfWidth/(tangent*camera.aspect*.90))+.3;
  const centerShift=(bottomInset-topInset)/viewportHeight*distance*tangent;
  camera.position.set(x,y-centerShift,distance-phase*3.4);
  camera.lookAt(x,y-centerShift,-phase*3.4);

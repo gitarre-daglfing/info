@@ -2,7 +2,7 @@ import * as T from 'three';
 
 // Match the live DOM surface inside the rim. Color stays transparent so the
 // underlying webpage is visible, while depth rejects every object behind it.
-export const PORTAL_SURFACE = {halfWidth:2.23,halfHeight:2.88,z:0};
+export const PORTAL_SURFACE = {halfWidth:3.48,halfHeight:2.88,z:0};
 export function attachPortalOcclusion(frames,count=6){
   // Each rim needs its own material so fading one frame cannot dim the others.
   frames.forEach(frame=>frame.traverse(object=>{
