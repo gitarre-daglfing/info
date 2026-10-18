@@ -18,9 +18,10 @@
   loadNearby(Number(initialFrame?.dataset.siteChapter||0));
   const expand=document.querySelector('[data-frame-fullscreen]');
   let fullscreen=null;
-  function leaveFullscreen(){
+  function leaveFullscreen(fromHistory=false){
     if(!fullscreen)return;
     const session=fullscreen;fullscreen=null;
+    if(session.historyEntry&&!fromHistory)history.replaceState(session.previousHistoryState,'',location.href);
     session.preview.classList.remove('is-frame-fullscreen');
     session.preview.hidden=session.hidden;session.preview.inert=session.inert;
     session.bar.remove();
@@ -44,7 +45,8 @@
     const close=document.createElement('button');close.type='button';close.textContent='Schließen ×';close.addEventListener('click',event=>{event.stopPropagation();leaveFullscreen();});
     bar.append(close);preview.prepend(bar);
     const siblings=[...document.body.children].filter(node=>!node.contains(world)&&node!==world).map(node=>[node,node.inert]);
-    fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false,scrollY:window.scrollY,scrollTop:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top')?{value:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top'),priority:document.body.style.getPropertyPriority('--portal-fullscreen-scroll-top')}:null};
+    fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false,scrollY:window.scrollY,previousHistoryState:history.state,historyEntry:true,scrollTop:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top')?{value:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top'),priority:document.body.style.getPropertyPriority('--portal-fullscreen-scroll-top')}:null};
+    history.pushState({__portalFullscreen:true},'',location.href);
     const session=fullscreen;
     siblings.forEach(([node])=>{node.inert=true;});
     document.body.style.setProperty('--portal-fullscreen-scroll-top',`${-session.scrollY}px`);
@@ -71,6 +73,7 @@
   document.addEventListener('fullscreenchange',()=>{
     if(fullscreen?.native&&!document.fullscreenElement)leaveFullscreen();
   });
+  window.addEventListener('popstate',()=>{if(fullscreen)leaveFullscreen(true);});
   const escape=event=>{if(event.key==='Escape'&&fullscreen){event.preventDefault();leaveFullscreen();}};
   document.addEventListener('keydown',escape);
   previews.forEach(preview=>preview.querySelector('iframe').addEventListener('load',()=>{

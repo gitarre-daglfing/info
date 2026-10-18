@@ -11,6 +11,10 @@ const story=globalThis.MUSEUM_STORIES[key];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const integrated=document.body.classList.contains('journey-integrated');
 const starry=integrated&&key==='portal'&&document.body.classList.contains('starry-edition');
+function removePrologueHash(){
+ if(starry&&location.hash==='#portal-prologue')history.replaceState(history.state,'',location.pathname+location.search);
+}
+removePrologueHash();
 const mobileQuality=starry&&(matchMedia('(max-width:760px)').matches||navigator.connection?.saveData);
 const frames=[...document.querySelectorAll('.story-frame')];
 const lastChapter=frames.length-1;
@@ -29,6 +33,13 @@ const choiceBadges=[...document.querySelectorAll('[data-carry-choice]')];
 const portalFinale=starry?document.querySelector('.portal-finale'):null;
 const portalPrologue=starry?document.querySelector('.portal-prologue'):null;
 const wallLabels=[...document.querySelectorAll('[data-wall-label]')];
+let lastHistoryRoute=location.pathname+location.search+location.hash;
+let historyNavigationTarget=null;
+const fullRoute=route=>route.startsWith('#')?location.pathname+location.search+route:route;
+if(starry){
+ history.scrollRestoration='manual';
+ history.replaceState({...history.state,__portalSection:lastHistoryRoute},'',location.href);
+}
 
 let messageTimer;
 function notify(message){clearTimeout(messageTimer);status.textContent=message;messageTimer=setTimeout(()=>{status.textContent='';},4500);}
@@ -101,9 +112,17 @@ function updateUI(){
   const target=document.getElementById(link.hash.slice(1));
   if(target&&target.getBoundingClientRect().top<=innerHeight*.35)currentPageLink=link;
  });
- if(scrollY!==routeScrollY){
+ const sectionRoute=currentPageLink.hash==='#portal-prologue'?location.pathname+location.search:currentPageLink.hash;
+ const routeUrl=fullRoute(sectionRoute);
+ if(starry){
+  if(historyNavigationTarget){
+   if(historyNavigationTarget===routeUrl)historyNavigationTarget=null;
+  }else if(routeUrl!==lastHistoryRoute){
+   history.pushState({...history.state,__portalSection:routeUrl},'',routeUrl);
+   lastHistoryRoute=routeUrl;
+  }
+ }else if(scrollY!==routeScrollY){
   routeScrollY=scrollY;
-  const route=currentPageLink.hash==='#portal-prologue'?location.pathname+location.search:currentPageLink.hash;
   if(location.pathname+location.search+location.hash!==route)history.replaceState(history.state,'',route);
  }
  pageLinks.forEach(link=>link.setAttribute('aria-current',link===currentPageLink?'location':'false'));
@@ -145,6 +164,23 @@ pauseButtons.forEach(button=>button.addEventListener('click',()=>{
  renderWake();
 }));
 addEventListener('scroll',queueUI,{passive:true});addEventListener('resize',queueUI);reduced.addEventListener('change',queueUI);
+addEventListener('hashchange',removePrologueHash);
+if(starry){
+ window.addEventListener('popstate',()=>{
+  if(document.body.classList.contains('portal-fullscreen'))return;
+  const route=location.pathname+location.search+location.hash;
+  const target=location.hash?document.getElementById(location.hash.slice(1)):portalPrologue;
+  if(!target)return;
+  lastHistoryRoute=route;
+  historyNavigationTarget=route;
+  if(window.museumPortalNavigate)window.museumPortalNavigate(target);
+  else scrollTo({top:scrollY+target.getBoundingClientRect().top-90,behavior:reduced.matches?'instant':'smooth'});
+ });
+ const cancelHistoryNavigation=()=>{historyNavigationTarget=null;};
+ addEventListener('wheel',cancelHistoryNavigation,{passive:true});
+ addEventListener('touchstart',cancelHistoryNavigation,{passive:true});
+ addEventListener('keydown',cancelHistoryNavigation);
+}
 syncMemory();document.body.classList.add('story-enhanced');refreshUI();
 
 try{
