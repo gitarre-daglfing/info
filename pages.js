@@ -6,12 +6,12 @@ const heading=text=>app.append(el('h1',text));
 const paragraph=text=>app.append(el('p',text,'intro'));
 if(section==='0'){
  heading('Professioneller Musikunterricht\nin München-Daglfing');paragraph(data.introduction);
- const map=el('img');map.src='assets/map.jpg';map.alt='Karte zur Lage des Musikunterrichts';map.className='lesson-map';app.append(map);
+ const map=el('img');map.src='assets/map.png';map.alt='Karte zur Lage des Musikunterrichts';map.className='lesson-map';app.append(map);
 }else if(section==='1'){
  heading('Über die Instrumente');paragraph('Klicke auf ein Instrument um näheres herauszufinden.');
  const covers=el('div',null,'covers');const detail=el('section',null,'detail');detail.setAttribute('aria-live','polite');
  const pick=i=>{covers.querySelectorAll('button').forEach((b,k)=>b.setAttribute('aria-pressed',String(k===i)));detail.replaceChildren(el('small',data.projects[i].type),el('h2',data.projects[i].name),el('p',data.projects[i].description),el('p',data.projects[i].tags.join(' · '),'tags'));};
- data.projects.forEach((p,i)=>{const b=el('button',null,'cover');const image=el('img');image.src=`assets/cover/cover-${i+1}.jpg`;image.alt='';b.append(image);b.setAttribute('aria-label','Read about '+p.name);b.setAttribute('aria-pressed',String(i===0));b.onclick=()=>pick(i);covers.append(b);});
+ data.projects.forEach((p,i)=>{const b=el('button',null,'cover');const image=el('img');image.src=`assets/cover/cover-${i+1}.png`;image.alt='';b.append(image);b.setAttribute('aria-label','Read about '+p.name);b.setAttribute('aria-pressed',String(i===0));b.onclick=()=>pick(i);covers.append(b);});
  app.append(covers,detail);pick(0);
  if(document.body.classList.contains('catalog')){const a=el('a','Return to the museum ↗');a.href='index.html#instrumente';app.append(a);}
 }else if(section==='2'){
