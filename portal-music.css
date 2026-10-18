@@ -6,7 +6,7 @@
 .museum-edition .portal-preview-layer{position:absolute;inset:0;z-index:3;pointer-events:none}
 .museum-edition .portal-preview{position:absolute;left:0;top:0;width:760px;height:960px;padding:0;border:0;background:#f6f3eb;color:#574f42;transform-origin:0 0;box-shadow:none;overflow:hidden;pointer-events:auto;cursor:auto;backface-visibility:hidden}
 .museum-edition .portal-preview-paper{display:block;width:100%;height:100%;background:#f6f3eb}
-.museum-edition .portal-preview iframe{display:block;width:100%;height:100%;border:0;background:#f6f3eb;pointer-events:auto}
+.museum-edition .portal-preview iframe{display:block;width:100%;height:100%;border:0;background:#f6f3eb;pointer-events:none}
 .museum-edition .portal-preview-caption{pointer-events:none;position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px 28px;background:linear-gradient(transparent,#263d44c7);color:white;text-align:left;font:18px/1.5 Wenkai,serif;letter-spacing:.05em}
 .museum-edition .story-frame{min-height:120svh;max-width:1160px;margin:auto}
 .museum-edition .story-frame>.frame-surface{position:relative;width:min(350px,31%);min-height:76svh;padding:140px 22px 60px 0;margin:0;background:transparent;border:0;box-shadow:none;pointer-events:auto}
@@ -32,15 +32,16 @@
 .museum-edition .portal-fallback-link{display:inline-block;margin:20px 0;color:#69543f;text-decoration:underline}
 
 /* Expand the live painting without reparenting or reloading its iframe. */
-body.museum-edition.portal-fullscreen{overflow:hidden}
+html.portal-fullscreen,body.museum-edition.portal-fullscreen{height:100%;overflow:hidden!important;overscroll-behavior:none}
+body.museum-edition.portal-fullscreen{position:fixed;top:var(--portal-fullscreen-scroll-top,0px);left:0;right:0;width:100%}
 .museum-edition.portal-fullscreen .story-world{position:fixed!important;inset:0!important;z-index:10000!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
 .museum-edition.portal-fullscreen .story-world::after,
 .museum-edition.portal-fullscreen #story-canvas{display:none!important}
 .museum-edition.portal-fullscreen .portal-preview-layer{display:block!important;position:fixed;inset:0;z-index:1;opacity:1!important;transform:none!important}
 .museum-edition.portal-fullscreen .portal-preview:not(.is-frame-fullscreen){display:none!important}
-.museum-edition.portal-fullscreen .portal-preview.is-frame-fullscreen{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;transform:none!important;opacity:1!important;visibility:visible!important;z-index:1!important;display:flex!important;flex-direction:column;box-sizing:border-box;padding:10px;background:#ad854c url('assets/starry-gallery/wood/oak-veneer.webp') center/cover;box-shadow:inset 0 0 0 2px #e4c284;backface-visibility:visible}
-.museum-edition .is-frame-fullscreen .portal-preview-paper{flex:1;min-height:0;height:auto;overflow:hidden;box-shadow:0 0 0 1px #e5c383}
-.museum-edition .is-frame-fullscreen iframe{height:100%;width:100%;background:#e7e2ce}
+.museum-edition.portal-fullscreen .portal-preview.is-frame-fullscreen{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;transform:none!important;opacity:1!important;visibility:visible!important;z-index:1!important;display:flex!important;flex-direction:column;box-sizing:border-box;padding:10px;background:#102438;backface-visibility:visible}
+.museum-edition .is-frame-fullscreen .portal-preview-paper{flex:1;min-height:0;height:auto;overflow:hidden}
+.museum-edition .is-frame-fullscreen iframe{height:100%;width:100%;background:#e7e2ce;pointer-events:auto;overscroll-behavior:contain}
 .museum-edition .is-frame-fullscreen .portal-preview-caption{display:none}
 .portal-fullscreen-bar{display:flex;flex-shrink:0;align-items:center;justify-content:space-between;gap:20px;min-height:48px;padding:0 14px;background:#253f38;color:#f4e6c3;font:14px/1.5 system-ui,sans-serif}
 .portal-fullscreen-bar button{font:inherit;color:#f4e6c3;background:transparent;border:1px solid #c8ba9066;border-radius:5px;padding:6px 13px;cursor:pointer}

@@ -15,14 +15,6 @@
     }
   }
   loadNearby(Number(location.hash.match(/^#frame-(\d+)$/)?.[1]||0));
-  window.museumPortalContainsPoint=(x,y)=>previews.some(preview=>{
-    if(preview.hidden||Number(preview.style.opacity||1)<.05)return false;
-    const rect=preview.getBoundingClientRect();
-    if(!rect.width||!rect.height)return false;
-    const rim=Math.max(rect.width/4.46,rect.height/5.76)*.38+4;
-    return x>=rect.left-rim&&x<=rect.right+rim&&y>=rect.top-rim&&y<=rect.bottom+rim;
-  });
-
   const expand=document.querySelector('[data-frame-fullscreen]');
   let fullscreen=null;
   function leaveFullscreen(){
@@ -31,7 +23,12 @@
     session.preview.classList.remove('is-frame-fullscreen');
     session.preview.hidden=session.hidden;session.preview.inert=session.inert;
     session.bar.remove();
+    document.documentElement.classList.remove('portal-fullscreen');
     document.body.classList.remove('portal-fullscreen');
+    if(session.scrollTop){
+      document.body.style.setProperty('--portal-fullscreen-scroll-top',session.scrollTop.value,session.scrollTop.priority);
+    }else document.body.style.removeProperty('--portal-fullscreen-scroll-top');
+    window.scrollTo({top:session.scrollY,behavior:'instant'});
     session.siblings.forEach(([node,inert])=>{node.inert=inert;});
     expand?.setAttribute('aria-expanded','false');
     if(session.native&&document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
@@ -47,10 +44,12 @@
     const close=document.createElement('button');close.type='button';close.textContent='Schließen ×';close.addEventListener('click',event=>{event.stopPropagation();leaveFullscreen();});
     bar.append(title,close);preview.prepend(bar);
     const siblings=[...document.body.children].filter(node=>!node.contains(world)&&node!==world).map(node=>[node,node.inert]);
-    fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false};
+    fullscreen={preview,bar,siblings,hidden:preview.hidden,inert:preview.inert,focus:document.activeElement,native:false,scrollY:window.scrollY,scrollTop:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top')?{value:document.body.style.getPropertyValue('--portal-fullscreen-scroll-top'),priority:document.body.style.getPropertyPriority('--portal-fullscreen-scroll-top')}:null};
     const session=fullscreen;
     siblings.forEach(([node])=>{node.inert=true;});
+    document.body.style.setProperty('--portal-fullscreen-scroll-top',`${-session.scrollY}px`);
     preview.hidden=false;preview.inert=false;preview.classList.add('is-frame-fullscreen');
+    document.documentElement.classList.add('portal-fullscreen');
     document.body.classList.add('portal-fullscreen');expand?.setAttribute('aria-expanded','true');close.focus({preventScroll:true});
     dispatchEvent(new Event('resize'));
     // Keep the existing iframe in place: notes, book pages and gallery state survive.
