@@ -2,6 +2,7 @@
 body{background:#122438}
 h1{color:#f4e6c7}
 .intro{color:#c7d1d3}
+.lesson-map{display:block;width:min(100%,200px);height:auto;margin:28px auto 0;border-radius:8px}
 .detail{background:#122438;color:#c7d1d3}
 .detail .tags{color:inherit}
 html,body{scrollbar-width:none;-ms-overflow-style:none}

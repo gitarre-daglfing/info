@@ -6,6 +6,7 @@ const heading=text=>app.append(el('h1',text));
 const paragraph=text=>app.append(el('p',text,'intro'));
 if(section==='0'){
  heading('Professioneller Musikunterricht\nin München-Daglfing');paragraph(data.introduction);
+ const map=el('img');map.src='assets/map.jpg';map.alt='Karte zur Lage des Musikunterrichts';map.className='lesson-map';app.append(map);
 }else if(section==='1'){
  heading('Über die Instrumente');paragraph('Klicke auf ein Instrument um näheres herauszufinden.');
  const covers=el('div',null,'covers');const detail=el('section',null,'detail');detail.setAttribute('aria-live','polite');
