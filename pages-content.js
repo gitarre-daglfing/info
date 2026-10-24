@@ -3,7 +3,7 @@
 globalThis.MUSEUM_CONTENT = {
   name: 'Demo Creator',
   role: 'Designing small, thoughtful digital experiences',
-  introduction: 'A portfolio can feel like a place. This anonymous collection explores useful tools, playful experiments and the process behind them.',
+  introduction: 'Ob Klassik oder Modern: Hier ist Raum für alle Stile. Angeboten wird Unterricht in Klassischer Gitarre, E-Gitarre, Klavier, Bass und Gesang, dazu Songwriting, Improvisation und Komposition. Willkommen sind Anfänger und Fortgeschrittene aller Altersstufen, ganz gleich, ob jemand gerade erst beginnt oder schon lange musiziert. Mit langjähriger Erfahrung wird der Unterricht individuell auf Wünsche und Ziele abgestimmt und begleitet vom ersten Ton bis zum eigenen Song. Der Unterricht findet in Daglfing statt und ist von überall im Münchner Osten gut erreichbar.',
   projects: [
     {name:'Klassische Gitarre',type:'EXPLORATION',symbol:'𝄞',color:'#397477',description:'A fictional map notebook for saving places and arranging a weekend walk. The imagined workflow moves from a short list to a readable route, with useful notes kept beside each stop.',tags:['Maps','Interface','Local-first']},
     {name:'Klavier',type:'FOCUS',symbol:'𝄞',color:'#92674d',description:'A fictional focus companion built around fewer decisions: choose one intention, start a calm session, and leave a short reflection. This is a design example, not a released product.',tags:['Interaction','Time','Accessibility']},
