@@ -1,6 +1,21 @@
 # Asset and code provenance
 
-Only the following third-party materials are distributed:
+## License boundary
+
+The repository's [`LICENSE`](LICENSE) applies to the website source code. It does not grant a license to the website-specific copy, photographs, illustrations, or other media listed below. Those materials remain subject to the rights of their respective copyright holders; obtain permission from the applicable holder before reusing them unless a separate license applies.
+
+## Website-specific content
+
+The following site-specific materials are not covered by the source-code MIT license:
+
+- Gallery photographs in `assets/galerie/`
+- Instrument cover images in `assets/cover/`
+- `assets/map.png`, `klick.png`, and `tel.png`
+- Website-specific text and copy, including the German content in `index.html` and `pages-content.js`
+
+No additional reuse rights for these materials are granted by this repository's MIT license. Their rights remain with their respective copyright holders.
+
+## Third-party materials
 
 | Material | Source | Terms / local notice |
 | --- | --- | --- |
@@ -10,6 +25,4 @@ Only the following third-party materials are distributed:
 
 `starry-flow-map.png` is an encoded derivative of the upstream flow direction field. The JavaScript shader uses that field to warp the complete painting, not to add particles on top. This is not Petros Vrellis's implementation.
 
-The oak moulding geometry, frame/iframe projection, transitions, exhibit layout, CSS illustrations, icon and fictional content are template code. No user-branded raster illustrations, personal project screenshots, API application code, AGPL dialog components, custom fonts or tracking scripts are included.
-
-Retain these notices when redistributing. Replacing assets requires checking the replacement asset's terms separately.
+Retain applicable third-party notices when redistributing. Replacing or adding assets requires checking and documenting their sources and terms separately.
