@@ -28,7 +28,7 @@ const previousButton=document.querySelector('button[data-prev]');
 const nextButton=document.querySelector('button[data-next]');
 const pauseButtons=[...document.querySelectorAll('[data-pause]')];
 const nextLabel=document.body.dataset.nextLabel||document.body.dataset.next||'下一幕';
-const pageLinks=[...document.querySelectorAll('.nav-options a[href^="#"]')];
+const pageLinks=[...document.querySelectorAll('.nav-options a[href^="#"],.nav .pill[href^="#"]')];
 const choiceBadges=[...document.querySelectorAll('[data-carry-choice]')];
 const portalFinale=starry?document.querySelector('.portal-finale'):null;
 const portalPrologue=starry?document.querySelector('.portal-prologue'):null;

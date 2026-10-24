@@ -6,7 +6,7 @@ const root=process.cwd();
 const entry=fs.readFileSync('index.html','utf8');
 assert.equal((entry.match(/data-exhibit-frame=/g)||[]).length,4);
 assert.equal((entry.match(/class="nav-options"/g)||[]).length,1);
-assert.match(entry,/class="nav-options"[^]*?<a href="#portal-prologue">Start<\/a>[^]*?<a href="#invitation">Finale<\/a>/);
+assert.match(entry,/class="nav-options"[^]*?<a href="#portal-prologue">Start<\/a>[^]*?<a href="#frame-4">Über mich<\/a><\/div>/);
 assert.match(entry,/id="unterricht"[^]*id="instrumente"[^]*id="galerie"[^]*id="frame-4"[^]*id="invitation"/);
 assert.match(entry,/id="title-0">Musikunterricht in Daglfing/);
 assert.match(entry,/id="title-1">Das passende Instrument/);
@@ -18,8 +18,8 @@ assert.match(entry,/<button aria-controls="page-navigation" aria-expanded="false
 assert.match(entry,/<button class="portal-enter" data-tour-start type="button">Scrolle nach unten und tauche ein/);
 assert.match(entry,/<div class="portal-prologue-heading"><p class="portal-prologue-kicker">PAUL JES - MUSIKUNTRRICHT<\/p><img alt="" aria-hidden="true" class="portal-prologue-placeholder" src="jubilaeum\.png" width="1536" height="1024">/);
 assert.ok(fs.statSync('jubilaeum.png').size>0);
-assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-placeholder\{--anniversary-image-rotation:4deg;position:absolute;top:50%;right:-16px;width:100px;height:auto;aspect-ratio:3\/2;object-fit:contain;color:#d5b979;transform:translateY\(-50%\) rotate\(var\(--anniversary-image-rotation\)\)/);
-assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-placeholder\{top:-62px;right:0;width:70px\}/);
+assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-placeholder\{--anniversary-image-rotation:4deg;position:absolute;top:50%;right:-16px;width:200px;height:auto;aspect-ratio:3\/2;object-fit:contain;color:#d5b979;transform:translateY\(-50%\) rotate\(var\(--anniversary-image-rotation\)\)/);
+assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-placeholder\{top:-62px;right:0;width:120px\}/);
 assert.match(fs.readFileSync('portal-starry.css','utf8'),/\.portal-prologue-kicker\{margin:0;[^}]*text-align:center/);
 assert.match(entry,/<button class="portal-enter" data-tour-start type="button">Scrolle nach unten und tauche ein<span aria-hidden="true">↓<\/span><\/button>\s*<div class="portal-prologue-pause story-directions"><button data-pause="" type="button" aria-pressed="false">Animation pausieren Ⅱ<\/button><\/div>/);
 assert.equal((entry.match(/data-pause=""/g)||[]).length,2);
@@ -27,23 +27,25 @@ assert.match(entry,/<button aria-pressed="false" data-pause="" type="button">Ani
 assert.match(entry,/<a class="brand" href="#portal-prologue">/);
 assert.equal((entry.match(/class="story-stop"/g)||[]).length,6);
 assert.match(entry,/class="story-stop" data-stop-target="portal-prologue"[^]*?<span>Start<\/span>/);
-assert.match(entry,/class="story-stop" data-stop-target="invitation"[^]*?<span>Finale<\/span>/);
-assert.match(entry,/<a class="pill" href="kontakt\/" aria-label="Kontakt"><span class="pill-label">Kontakt<\/span><span class="pill-arrow" aria-hidden="true">↗<\/span><\/a>/);
+assert.match(entry,/class="story-stop" data-stop-target="invitation"[^]*?<span>Kontakt<\/span>/);
+assert.match(entry,/<a class="pill" href="#invitation" aria-label="Kontakt"><span class="pill-label">Kontakt<\/span><span class="pill-arrow" aria-hidden="true">  ↗<\/span><\/a>/);
+assert.equal((entry.match(/href="#invitation"/g)||[]).length,1);
+assert.match(entry,/<h2 id="portal-finale-title">Ende\.<br\/><em>Finale WORTE<\/em><\/h2>/);
 const templateCss=fs.readFileSync('template.css','utf8');
 const portalCss=fs.readFileSync('portal-music.css','utf8');
+assert.match(fs.readFileSync('src/story-engine.js','utf8'),/querySelectorAll\('\.nav-options a\[href\^="#"\],\.nav \.pill\[href\^="#"\]'\)/);
 assert.match(fs.readFileSync('pages.css','utf8'),/body\{background:#122438\}/);
 assert.match(fs.readFileSync('pages.css','utf8'),/html,body\{scrollbar-width:none;-ms-overflow-style:none\}/);
 assert.match(fs.readFileSync('pages.css','utf8'),/html::\-webkit-scrollbar,body::\-webkit-scrollbar\{display:none\}/);
 assert.match(portalCss,/\.museum-edition \.portal-preview iframe\{[^}]*pointer-events:none/);
 assert.match(portalCss,/\.museum-edition \.is-frame-fullscreen iframe\{[^}]*pointer-events:auto/);
 assert.match(templateCss,/@media\(max-width:780px\)\{[^}]*\.journey-integrated \.nav \.links\{display:flex/);
-assert.match(templateCss,/@media\(max-width:400px\)\{\.journey-integrated \.nav \.pill-label\{display:none\}\.journey-integrated \.nav \.pill::before\{content:"📧"\}/);
-assert.match(entry,/<a class="portal-gallery-entry" href="kontakt\/">/);
+assert.match(templateCss,/\.journey-integrated \.nav \.links>\.pill\{display:inline-flex;align-items:center;gap:4px;padding:6px 10px\}/);
+assert.doesNotMatch(fs.readFileSync('integrated-worlds.css','utf8'),/\.journey-integrated \.nav \.links>\.pill\{display:none\}/);
+assert.doesNotMatch(entry,/portal-gallery-entry|kontakt\//);
 assert.match(entry,/<button aria-label="← Zurück" data-prev="" type="button">← Zurück<\/button>/);
-const contact=fs.readFileSync('kontakt/index.html','utf8');
-assert.match(contact,/<title>Kontakt — Musikunterricht Daglfing<\/title>/);
-assert.match(contact,/<nav class="nav" id="top" aria-label="Hauptnavigation">\s*<div class="wrap" style="display:flex;align-items:center;justify-content:space-between">\s*<a class="brand" href="\.\.\/"><span aria-hidden="true">𝄞<\/span>Musikunterricht Daglfing<\/a>/);
-assert.match(fs.readFileSync('kontakt.html','utf8'),/location\.replace\('\.\/kontakt\/'\)/);
+assert.ok(!fs.existsSync('kontakt/index.html'));
+assert.ok(!fs.existsSync('kontakt.html'));
 assert.ok(!entry.includes('data-auto-tour'));
 assert.ok(entry.includes('data-frame-fullscreen'));
 assert.ok(!entry.includes('catalog.html'));
@@ -56,7 +58,7 @@ for(let i=1;i<=4;i++)assert.ok(fs.statSync(`assets/cover/cover-${i}.jpg`).size>0
 for(const name of fs.readdirSync(root).filter(n=>/\.(html|css)$/.test(n))){
  const text=fs.readFileSync(name,'utf8');
  const refs=[...text.matchAll(/(?:src|href)="([^"]+)"|url\(['"]?([^)'"\s]+)['"]?\)/g)].map(m=>m[1]||m[2]);
- for(const ref of refs){if(/^(?:#|https?:|data:)/.test(ref)||ref==='kontakt/'&&name==='index.html')continue;assert.ok(fs.existsSync(path.resolve(root,ref.split(/[?#]/)[0])),`${name}: missing ${ref}`);}
+ for(const ref of refs){if(/^(?:#|https?:|data:)/.test(ref))continue;assert.ok(fs.existsSync(path.resolve(root,ref.split(/[?#]/)[0])),`${name}: missing ${ref}`);}
 }
 const tour=fs.readFileSync('portal-tour.js','utf8');
 assert.ok(tour.includes('prefers-reduced-motion'));

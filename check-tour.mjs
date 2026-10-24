@@ -96,7 +96,7 @@ assert.equal(w.scrollY,2000,'The Galerie navigation link navigates to the third 
 menuToggle.click();assert.equal(menuToggle.getAttribute('aria-expanded'),'true');assert.ok(navLinks.classList.contains('mobile-menu-open'));
 const finaleLink=d.querySelector('.nav-options a[href="#invitation"]');
 finaleLink.click();
-assert.equal(w.scrollY,4000,'The Finale navigation link navigates to the finale');
+assert.equal(w.scrollY,4000,'The Kontakt navigation link navigates to the finale');
 assert.equal(w.location.hash,'#instrumente','Clicking Finale leaves URL updates to the scroll handler');
 assert.equal(menuToggle.getAttribute('aria-expanded'),'false','Selecting a page closes the mobile menu');
 menuToggle.click();menuToggle.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert.equal(menuToggle.getAttribute('aria-expanded'),'false','Escape closes the mobile menu');
