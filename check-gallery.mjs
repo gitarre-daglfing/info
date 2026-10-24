@@ -15,6 +15,7 @@ const {document}=window;
 const thumbnails=[...document.querySelectorAll('.gallery-item')];
 assert.equal(document.querySelector('main h1')?.textContent,'Galerie');
 assert.equal(thumbnails.length,7);
+assert.equal(document.querySelector('.gallery-copyright')?.textContent,'© Paul Jesberger');
 assert.deepEqual(thumbnails.map(button=>button.querySelector('img').getAttribute('src')),[
  'assets/galerie/bild-1.jpg',
  'assets/galerie/bild-2.jpg',

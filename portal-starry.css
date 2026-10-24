@@ -18,6 +18,7 @@
 .starry-edition .nav-options a[aria-current=location]{background:#d9bd7c;color:#172d3f;box-shadow:0 0 20px #e6c46a26}
 @media(max-width:760px){.starry-edition .nav.has-refraction{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}.starry-edition .portal-preview{box-shadow:12px 18px 24px -10px #020b1970}}
 .starry-edition .story-bottom{background:linear-gradient(transparent,#102235ee 48%);color:#f0e5c6}
+.starry-edition .story-bottom .story-stop span{font-size:14px}
 .starry-edition .portal-preview-caption{padding:16px 24px;background:linear-gradient(transparent,#102438cf);color:#e9d59b;font-size:15px}
 .starry-edition .portal-preview{background:#f6f0dd}
 .starry-edition .portal-preview{box-shadow:22px 38px 52px -16px #020b19a6,0 12px 24px #04101d38}
@@ -26,8 +27,9 @@
 .starry-edition.story-enhanced .portal-finale{opacity:var(--portal-arrival,0);transform:translateY(calc((1 - var(--portal-arrival,0))*35px));pointer-events:none}
 .starry-edition.story-enhanced.portal-arrived .portal-finale{pointer-events:auto}
 .starry-edition .portal-finale::before{content:"";position:absolute;z-index:-1;inset:3% -12%;background:radial-gradient(ellipse,#081d39e8 0,#091f39bb 35%,#102b4255 60%,transparent 75%);pointer-events:none}
-.starry-edition .portal-finale-kicker{font:10px/1.8 Consolas,monospace;letter-spacing:.3em;color:#f1ce80;margin:20px 0 25px}
-.starry-edition .portal-finale h2{font:400 clamp(38px,5.5vw,78px)/1.32 Wenkai,serif;letter-spacing:.035em;margin:0;text-shadow:0 6px 36px #091627}
+.starry-edition .portal-finale-kicker{font:12px/1.8 Consolas,monospace;letter-spacing:.3em;color:#f1ce80;margin:20px 0 25px}
+.starry-edition .portal-finale h2{font:400 clamp(22px,3vw,42px)/1.32 Wenkai,serif;letter-spacing:.035em;margin:0;text-shadow:0 6px 36px #091627}
+.starry-edition .portal-finale h2 em{font-size:clamp(30px,4.5vw,64px)}
 .starry-edition .portal-finale h2 em{font-style:normal;color:#f5cf79}
 .starry-edition .portal-finale-copy{font:18px/2 Wenkai,serif;color:#e6e4d7;margin:25px 0 34px}
 .starry-edition .portal-finale-foot{display:flex;gap:30px;align-items:center;margin-top:30px;font-size:11px;color:#d6dbd0}
@@ -52,14 +54,15 @@
 .starry-edition.story-enhanced .portal-prologue-copy{position:fixed;z-index:12;top:50%;left:50%;width:min(740px,calc(100% - 44px));transform:translate(-50%,-48%);opacity:var(--portal-intro-opacity)}
 .starry-edition .portal-prologue-copy::before{content:"";position:absolute;z-index:-1;inset:-100px -180px;background:radial-gradient(ellipse,#091b30ed 0,#0a1e34bd 40%,transparent 72%);pointer-events:none}
 .starry-edition .portal-prologue-heading{position:relative;min-height:80px;display:grid;place-items:center}
-.starry-edition .portal-prologue-kicker{margin:0;font:10px/1.6 Consolas,monospace;letter-spacing:.22em;color:#d5b979;text-align:center}
+.starry-edition .portal-prologue-kicker{margin:0;font:12px/1.6 Consolas,monospace;letter-spacing:.22em;color:#d5b979;text-align:center}
 .starry-edition .portal-prologue-heading>.pill{position:absolute;top:50%;right:-16px;display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border:0;border-radius:25px;background:var(--story-accent);color:var(--story-bg);font:inherit;pointer-events:auto;transform:translateY(-50%) rotate(4deg)}
 .starry-edition .portal-prologue-star{display:block;color:#e4bc6f;font:38px Georgia,serif;margin:28px 0 20px}
 .starry-edition .portal-prologue h1{font:400 clamp(35px,4.5vw,66px)/1.4 Wenkai,serif;letter-spacing:.035em;color:#f4e6c7;margin:0 0 24px;text-wrap:balance}
 .starry-edition .portal-prologue p:not(.portal-prologue-kicker){font:15px/2 Wenkai,serif;color:#c7d1d3}
 .starry-edition .portal-prologue p.portal-prologue-description{font-size:clamp(17px,1.4vw,20px)}
 .starry-edition .portal-phone-image{display:block;width:min(300px,84vw);height:auto;margin:16px auto 0;pointer-events:none}
-.starry-edition .portal-enter{position:relative;z-index:1;display:inline-flex;align-items:center;gap:28px;margin-top:24px;padding:12px 0;border:0;border-bottom:1px solid #d5b97960;background:transparent;color:#efce8d;font:13px Wenkai,serif;cursor:pointer;pointer-events:auto}
+.starry-edition .portal-enter{position:relative;z-index:1;display:inline-flex;align-items:center;gap:28px;margin-top:24px;padding:12px 0;border:0;border-bottom:1px solid #d5b97960;background:transparent;color:#efce8d;font:16px Wenkai,serif;cursor:pointer;pointer-events:auto}
+.starry-edition .portal-enter::before{content:"";position:absolute;z-index:-1;inset:-12px -20px;background:radial-gradient(ellipse,#efce8d35 0,transparent 72%);filter:blur(7px);pointer-events:none}
 .starry-edition .portal-enter span{font-size:22px}
 .starry-edition .portal-prologue-pause{position:relative;z-index:13;justify-content:center;margin-top:12px;pointer-events:auto}
 .starry-edition .portal-prologue-pause button{position:relative;z-index:1;pointer-events:auto}

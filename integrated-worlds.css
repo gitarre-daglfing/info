@@ -55,6 +55,8 @@
 .world-end-links{display:flex;gap:25px;flex-wrap:wrap;font-size:12px;color:var(--story-accent);padding:10px 0 45px}
 .journey-integrated .story-bottom{padding:12px 4.3% 16px;z-index:95}
 .journey-integrated .bottom-heading{max-width:260px}
+.journey-integrated .story-inventory{font-size:11px}
+.journey-integrated .bottom-heading>[data-stop-label]{font-size:12px}
 .journey-integrated .story-directions{gap:7px}
 .journey-integrated .story-directions [data-pause]{border:0;opacity:.6;padding-inline:5px}
 .journey-integrated .world-gift-dialog{width:min(92vw,490px);padding:36px 8px 18px;border:1px solid #ecdab4;border-radius:25px;overflow:visible;background:#fffefa;box-shadow:0 25px 90px #153b4f50}

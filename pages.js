@@ -28,7 +28,8 @@ if(section==='0'){
  const next=el('button','›','gallery-lightbox-arrow gallery-lightbox-next');next.type='button';next.setAttribute('aria-label','Nächstes Bild');
  const image=el('img',null,'gallery-lightbox-image');
  const counter=el('span',null,'gallery-lightbox-counter');counter.setAttribute('aria-live','polite');
- lightbox.append(close,previous,image,next,counter);app.append(gallery,lightbox);
+ const copyright=el('p','© Paul Jesberger','gallery-copyright');
+ lightbox.append(close,previous,image,next,counter);app.append(gallery,copyright,lightbox);
  function notifyFullscreenGallery(open){
   if(window.parent!==window)window.parent.postMessage({type:'museum-gallery-lightbox',open},location.origin);
  }

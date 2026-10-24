@@ -18,6 +18,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
 .gallery-item-2,.gallery-item-5{transform:rotate(1deg)}
 .gallery-item-3,.gallery-item-6{transform:rotate(-1deg)}
 .gallery-item-2:hover,.gallery-item-2:focus-visible,.gallery-item-3:hover,.gallery-item-3:focus-visible,.gallery-item-5:hover,.gallery-item-5:focus-visible,.gallery-item-6:hover,.gallery-item-6:focus-visible{transform:translateY(-5px)}
+.gallery-copyright{margin:0 0 24px;text-align:center;color:#b9975e;font-size:13px}
 body.gallery-open{overflow:hidden}
 .gallery-lightbox[hidden]{display:none}
 .gallery-lightbox{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:hidden;background:#020813eF}
