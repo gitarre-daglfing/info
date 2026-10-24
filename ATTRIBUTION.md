@@ -5,7 +5,6 @@ Only the following third-party materials are distributed:
 | Material | Source | Terms / local notice |
 | --- | --- | --- |
 | The Starry Night (1889), Vincent van Gogh | [Google Art Project reproduction on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg) | Public-domain painting and reproduction; local desktop/mobile WebP derivatives |
-| Oak Veneer 01 color texture | [Poly Haven](https://polyhaven.com/a/oak_veneer_01) | CC0; compressed WebP color derivative |
 | Flow direction field | [DomonJi/InteractiveStarryNight](https://github.com/DomonJi/InteractiveStarryNight) | MIT, copyright 2016 Domon; `assets/starry-gallery/INTERACTIVE-STARRY-NIGHT-LICENSE.txt` |
 | Three.js | [mrdoob/three.js](https://github.com/mrdoob/three.js) | MIT; `assets/THREE-LICENSE.txt`; bundled into `assets/music.js` |
 
