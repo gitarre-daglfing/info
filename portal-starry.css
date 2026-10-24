@@ -53,11 +53,12 @@
 .starry-edition .portal-prologue-copy::before{content:"";position:absolute;z-index:-1;inset:-100px -180px;background:radial-gradient(ellipse,#091b30ed 0,#0a1e34bd 40%,transparent 72%);pointer-events:none}
 .starry-edition .portal-prologue-heading{position:relative;min-height:80px;display:grid;place-items:center}
 .starry-edition .portal-prologue-kicker{margin:0;font:10px/1.6 Consolas,monospace;letter-spacing:.22em;color:#d5b979;text-align:center}
-.starry-edition .portal-prologue-placeholder{--anniversary-image-rotation:4deg;position:absolute;top:50%;right:-16px;width:200px;height:auto;aspect-ratio:3/2;object-fit:contain;color:#d5b979;transform:translateY(-50%) rotate(var(--anniversary-image-rotation))}
+.starry-edition .portal-prologue-heading>.pill{position:absolute;top:50%;right:-16px;display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border:0;border-radius:25px;background:var(--story-accent);color:var(--story-bg);font:inherit;pointer-events:auto;transform:translateY(-50%) rotate(4deg)}
 .starry-edition .portal-prologue-star{display:block;color:#e4bc6f;font:38px Georgia,serif;margin:28px 0 20px}
 .starry-edition .portal-prologue h1{font:400 clamp(35px,4.5vw,66px)/1.4 Wenkai,serif;letter-spacing:.035em;color:#f4e6c7;margin:0 0 24px;text-wrap:balance}
 .starry-edition .portal-prologue p:not(.portal-prologue-kicker){font:15px/2 Wenkai,serif;color:#c7d1d3}
 .starry-edition .portal-prologue p.portal-prologue-description{font-size:clamp(17px,1.4vw,20px)}
+.starry-edition .portal-phone-image{display:block;width:min(300px,84vw);height:auto;margin:16px auto 0;pointer-events:none}
 .starry-edition .portal-enter{position:relative;z-index:1;display:inline-flex;align-items:center;gap:28px;margin-top:24px;padding:12px 0;border:0;border-bottom:1px solid #d5b97960;background:transparent;color:#efce8d;font:13px Wenkai,serif;cursor:pointer;pointer-events:auto}
 .starry-edition .portal-enter span{font-size:22px}
 .starry-edition .portal-prologue-pause{position:relative;z-index:13;justify-content:center;margin-top:12px;pointer-events:auto}
@@ -74,7 +75,7 @@
 .starry-edition .portal-wall-label h2{font:400 22px/1.4 Wenkai,serif;color:#f5e5c7;margin:8px 0}
 .starry-edition .portal-wall-label p{font:12px/1.8 Wenkai,serif;color:#c9d4d6;margin:0}
 @media(max-width:600px){.starry-edition.story-webgl .portal-wall-labels{bottom:100px;width:auto;left:18px;right:18px}.starry-edition .portal-wall-label{display:flex;gap:12px;align-items:center;padding:8px 12px;width:max-content;max-width:100%}.starry-edition .portal-wall-label h2{font-size:14px!important;margin:0}.starry-edition .portal-wall-label p{display:none}}
-@media(max-width:760px){.starry-edition .portal-prologue{height:115svh}.starry-edition .portal-prologue-copy::before{inset:-70px -55px}.starry-edition .portal-prologue-heading{min-height:16px}.starry-edition .portal-prologue-kicker{font-size:8px;letter-spacing:.1em}.starry-edition .portal-prologue-placeholder{top:-62px;right:0;width:120px}.starry-edition .portal-prologue h1{font-size:clamp(30px,7vw,43px)}.starry-edition.story-webgl .portal-wall-labels{left:18px;bottom:125px;width:205px}.starry-edition .portal-wall-label{padding:12px 15px}.starry-edition .portal-wall-label h2{font-size:18px}.starry-edition .portal-wall-label p{font-size:11px}}
+@media(max-width:760px){.starry-edition .portal-prologue{height:115svh}.starry-edition .portal-prologue-copy::before{inset:-70px -55px}.starry-edition .portal-prologue-heading{min-height:16px}.starry-edition .portal-prologue-kicker{font-size:8px;letter-spacing:.1em}.starry-edition .portal-prologue-heading>.pill{top:-62px;right:0;padding:6px 10px}.starry-edition .portal-prologue h1{font-size:clamp(30px,7vw,43px)}.starry-edition .portal-phone-image{margin-top:12px}.starry-edition.story-webgl .portal-wall-labels{left:18px;bottom:125px;width:205px}.starry-edition .portal-wall-label{padding:12px 15px}.starry-edition .portal-wall-label h2{font-size:18px}.starry-edition .portal-wall-label p{font-size:11px}}
 @media(max-width:760px){.starry-edition .portal-prologue p.portal-prologue-description{font-size:16px}}
 @media(max-width:760px){
  .starry-edition .story-frame>.frame-surface,.starry-edition .story-frame:nth-child(even)>.frame-surface{background:linear-gradient(#102438ec,#102438ba);border-bottom:1px solid #d5bb7725}

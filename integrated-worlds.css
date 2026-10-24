@@ -2,6 +2,7 @@
    each world retains its own procedural scene and scroll camera path. */
 .journey-integrated{--ink:var(--story-ink);--muted:color-mix(in srgb,var(--story-ink) 65%,var(--story-bg));--blue:var(--story-accent);--line:color-mix(in srgb,var(--story-ink) 14%,transparent);background:var(--story-bg);color:var(--story-ink);overflow-x:clip}
 .journey-integrated .story-world{z-index:0}
+.journey-integrated.nav-hidden .nav{display:none}
 .journey-integrated .nav{z-index:110;color:var(--story-ink);background:color-mix(in srgb,var(--story-bg) 18%,transparent);border-color:var(--line)}
 .journey-integrated .nav.is-scrolled{width:min(1120px,calc(100% - 30px));background:color-mix(in srgb,var(--story-bg) 18%,transparent);border-color:var(--line)}
 .journey-integrated .nav .links{gap:17px;color:var(--story-ink)}
