@@ -114,7 +114,7 @@
       const frame=frames[index];
       if(!frame){preview.hidden=true;return;}
       const opacity=frame.userData.portalOpacity??(index<active?0:1);
-      if(opacity<=0){preview.hidden=true;preview.inert=true;return;}
+      if(opacity<=0){preview.hidden=true;preview.inert=true;preview.classList.remove('is-fullscreen-available');return;}
       const entrance=Number(document.body.style.getPropertyValue('--portal-exhibits-opacity')||1);
       preview.inert=opacity<.98||entrance<.98;
       const {halfWidth:x,halfHeight:y,z}=surface;
@@ -128,6 +128,7 @@
       const matrix=homography(points);
       const visible=matrix&&points.every(point=>point.z<-.2)&&boxWidth>24&&boxWidth<viewportWidth*3;
       preview.hidden=!visible;
+      preview.classList.toggle('is-fullscreen-available',Boolean(visible&&index===active&&!preview.inert));
       if(!visible)return;
       preview.style.transform=matrix;
       preview.style.opacity=String(opacity);

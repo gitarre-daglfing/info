@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {PORTAL_SURFACE} from './portal-occlusion.js';
 
-export const STARRY_STOPS=[[-1.1,.35],[1.35,-.25],[-1.35,.15],[1.1,.48],[-.85,-.28],[.35,.18],[1.2,0]];
+export const STARRY_STOPS=[[-1.1,.35],[1.35,-.25],[-1.35,.15],[-.85,-.28]];
 
 export function arrangeStarryFrames(root,group,camera,phase,time=0,viewportHeight=900){
  const spread=Math.min(1,camera.aspect/1.15);

@@ -1,8 +1,6 @@
 // All entries are fictional demonstrations, not claims about a real person.
 // Keep links relative, or use HTTPS URLs when replacing the examples.
 globalThis.MUSEUM_CONTENT = {
-  name: 'Demo Creator',
-  role: 'Designing small, thoughtful digital experiences',
   introduction: 'Ob Klassik oder Modern: Hier ist Raum für alle Stile. Angeboten wird Unterricht in Klassischer Gitarre, E-Gitarre, Klavier, Bass und Gesang, dazu Songwriting, Improvisation und Komposition. Willkommen sind Anfänger und Fortgeschrittene aller Altersstufen, ganz gleich, ob jemand gerade erst beginnt oder schon lange musiziert. Mit langjähriger Erfahrung wird der Unterricht individuell auf Wünsche und Ziele abgestimmt und begleitet vom ersten Ton bis zum eigenen Song. Der Unterricht findet in Daglfing statt und ist von überall im Münchner Osten gut erreichbar.',
   projects: [
     {name:'Klassische Gitarre',type:'EXPLORATION',symbol:'𝄞',color:'#397477',description:'A fictional map notebook for saving places and arranging a weekend walk. The imagined workflow moves from a short list to a readable route, with useful notes kept beside each stop.',tags:['Maps','Interface','Local-first']},
@@ -15,5 +13,4 @@ globalThis.MUSEUM_CONTENT = {
     {title:'Make the detail useful.',text:'Motion should help people understand where they are going. Let a frame settle, keep text readable, and offer a quiet version. A small interaction earns its place by helping the visitor.'},
     {title:'Leave room to grow.',text:'Keep content separate from presentation. Replace these fictional examples with your own projects, process notes and honest descriptions. Remove sections that do not tell your story.'}
   ],
-  skills: ['Interface design','Creative development','Thoughtful prototyping']
 };
