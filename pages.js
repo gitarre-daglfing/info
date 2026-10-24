@@ -8,7 +8,7 @@ if(section==='0'){
  heading('Professioneller Musikunterricht\nin München-Daglfing');paragraph(data.introduction);
  const map=el('img');map.src='assets/map.png';map.alt='Karte zur Lage des Musikunterrichts';map.className='lesson-map';app.append(map);
 }else if(section==='1'){
- heading('Über die Instrumente');paragraph('Klicke auf ein Instrument um näheres herauszufinden.');
+ heading('Über die Instrumente');app.append(el('p','Klicke auf ein Instrument um näheres herauszufinden.','intro section-instruction'));
  const covers=el('div',null,'covers');const detail=el('section',null,'detail');detail.setAttribute('aria-live','polite');
  const pick=i=>{covers.querySelectorAll('button').forEach((b,k)=>b.setAttribute('aria-pressed',String(k===i)));detail.replaceChildren(el('small',data.projects[i].type),el('h2',data.projects[i].name),el('p',data.projects[i].description),el('p',data.projects[i].tags.join(' · '),'tags'));};
  data.projects.forEach((p,i)=>{const b=el('button',null,'cover');const image=el('img');image.src=`assets/cover/cover-${i+1}.png`;image.alt='';b.append(image);b.setAttribute('aria-label','Read about '+p.name);b.setAttribute('aria-pressed',String(i===0));b.onclick=()=>pick(i);covers.append(b);});
@@ -16,7 +16,8 @@ if(section==='0'){
  if(document.body.classList.contains('catalog')){const a=el('a','Return to the museum ↗');a.href='index.html#instrumente';app.append(a);}
 }else if(section==='2'){
  heading('Galerie');
- const images=['testbild.jpg','testbild-2.jpg','testbild-3.jpg','testbild-4.jpg','testbild-5.jpg','testbild-6.jpg','testbild-7.jpg'];
+ app.append(el('p','Bild klicken zum Vergrößern','intro section-instruction'));
+ const images=['bild-1.jpg','bild-2.jpg','bild-3.jpg','bild-4.jpg','testbild-5.jpg','testbild-6.jpg','testbild-7.jpg'];
  const gallery=el('div',null,'gallery-grid');
  let activeImage=0;
  let backgroundInert=[];
@@ -28,6 +29,9 @@ if(section==='0'){
  const image=el('img',null,'gallery-lightbox-image');
  const counter=el('span',null,'gallery-lightbox-counter');counter.setAttribute('aria-live','polite');
  lightbox.append(close,previous,image,next,counter);app.append(gallery,lightbox);
+ function notifyFullscreenGallery(open){
+  if(window.parent!==window)window.parent.postMessage({type:'museum-gallery-lightbox',open},location.origin);
+ }
  function showImage(index,direction=1){
   if(image.hasAttribute('src')){
    const outgoing=image.cloneNode();
@@ -45,11 +49,13 @@ if(section==='0'){
   backgroundInert=[...app.children].filter(node=>node!==lightbox).map(node=>[node,node.inert]);
   backgroundInert.forEach(([node])=>{node.inert=true;});
   lightbox.hidden=false;document.body.classList.add('gallery-open');
+  notifyFullscreenGallery(true);
   showImage(index,1);close.focus();
  }
  function closeGallery(){
   if(lightbox.hidden)return;
   lightbox.hidden=true;document.body.classList.remove('gallery-open');
+  notifyFullscreenGallery(false);
   backgroundInert.forEach(([node,inert])=>{node.inert=inert;});backgroundInert=[];
   gallery.querySelectorAll('button')[activeImage]?.focus();
  }

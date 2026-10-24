@@ -43,11 +43,13 @@ body.museum-edition.portal-fullscreen{position:fixed;top:var(--portal-fullscreen
 .museum-edition.portal-fullscreen .portal-preview:not(.is-frame-fullscreen){display:none!important}
 .museum-edition.portal-fullscreen .portal-preview::before{display:none!important}
 .museum-edition.portal-fullscreen .portal-preview.is-frame-fullscreen{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;transform:none!important;opacity:1!important;visibility:visible!important;z-index:1!important;display:flex!important;flex-direction:column;box-sizing:border-box;padding:10px;border-radius:0;background:#102438;backface-visibility:visible}
+.museum-edition.portal-fullscreen .portal-preview.is-frame-fullscreen.gallery-lightbox-open{padding:0}
+.museum-edition.portal-fullscreen .portal-preview.is-frame-fullscreen.gallery-lightbox-open .portal-fullscreen-bar{display:none}
 .museum-edition .is-frame-fullscreen .portal-preview-paper{flex:1;min-height:0;height:auto;overflow:hidden}
 .museum-edition .is-frame-fullscreen iframe{height:100%;width:100%;background:#e7e2ce;pointer-events:auto;overscroll-behavior:contain}
 .museum-edition .is-frame-fullscreen .portal-preview-caption{display:none}
 .portal-fullscreen-bar{display:flex;flex-shrink:0;align-items:center;justify-content:flex-end;min-height:48px;padding:0 14px;background:#102438;color:#102438;font:14px/1.5 system-ui,sans-serif}
-.portal-fullscreen-bar button{font:inherit;color:#122438;background:var(--story-accent,#d9b96d);border:1px solid var(--story-accent,#d9b96d);border-radius:5px;padding:6px 13px;cursor:pointer}
+.portal-fullscreen-bar button{font:inherit;color:#122438;background:var(--story-accent,#d9b96d);border:1px solid #122438;border-radius:5px;padding:6px 13px;cursor:pointer}
 .portal-fullscreen-bar button:focus-visible{outline:2px solid #f5d28a;outline-offset:3px}
 .museum-edition .story-directions [data-frame-fullscreen]{border:1px solid #dcc89577;border-radius:5px;padding:8px 12px;color:#f1e4bd}
 @media(max-width:600px){.museum-edition .story-directions [data-frame-fullscreen]{font-size:10px;padding:7px}.museum-edition.portal-fullscreen .portal-preview.is-frame-fullscreen{padding:5px}.portal-fullscreen-bar{font-size:12px;min-height:44px}}

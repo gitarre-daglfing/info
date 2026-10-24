@@ -16,10 +16,10 @@ const thumbnails=[...document.querySelectorAll('.gallery-item')];
 assert.equal(document.querySelector('main h1')?.textContent,'Galerie');
 assert.equal(thumbnails.length,7);
 assert.deepEqual(thumbnails.map(button=>button.querySelector('img').getAttribute('src')),[
- 'assets/galerie/testbild.jpg',
- 'assets/galerie/testbild-2.jpg',
- 'assets/galerie/testbild-3.jpg',
- 'assets/galerie/testbild-4.jpg',
+ 'assets/galerie/bild-1.jpg',
+ 'assets/galerie/bild-2.jpg',
+ 'assets/galerie/bild-3.jpg',
+ 'assets/galerie/bild-4.jpg',
  'assets/galerie/testbild-5.jpg',
  'assets/galerie/testbild-6.jpg',
  'assets/galerie/testbild-7.jpg'
@@ -31,13 +31,13 @@ assert.equal(lightbox.hidden,false);
 assert.ok(document.body.classList.contains('gallery-open'));
 assert.equal(document.activeElement,document.querySelector('.gallery-lightbox-close'));
 assert.equal(document.querySelector('.gallery-grid').inert,true);
-assert.equal(document.querySelector('.gallery-lightbox-image').getAttribute('src'),'assets/galerie/testbild-3.jpg');
+assert.equal(document.querySelector('.gallery-lightbox-image').getAttribute('src'),'assets/galerie/bild-3.jpg');
 assert.equal(document.querySelector('.gallery-lightbox-counter').textContent,'3 / 7');
 
 document.querySelector('.gallery-lightbox-next').click();
-assert.equal(document.querySelector('.gallery-lightbox-image').getAttribute('src'),'assets/galerie/testbild-4.jpg');
+assert.equal(document.querySelector('.gallery-lightbox-image').getAttribute('src'),'assets/galerie/bild-4.jpg');
 document.dispatchEvent(new window.KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
-assert.equal(document.querySelector('.gallery-lightbox-image').getAttribute('src'),'assets/galerie/testbild-3.jpg');
+assert.equal(document.querySelector('.gallery-lightbox-image').getAttribute('src'),'assets/galerie/bild-3.jpg');
 document.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
 assert.equal(lightbox.hidden,true);
 assert.ok(!document.body.classList.contains('gallery-open'));
