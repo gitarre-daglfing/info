@@ -33,7 +33,7 @@
 .starry-edition .portal-finale h2 em{font-style:normal;color:#f5cf79}
 .starry-edition .portal-finale-copy{font:18px/2 Wenkai,serif;color:#e6e4d7;margin:25px 0 34px}
 .starry-edition .portal-finale-foot{display:flex;gap:30px;align-items:center;margin-top:30px;font-size:11px;color:#d6dbd0}
-.starry-edition .portal-finale-foot a{color:#efd391;border-bottom:1px solid #efd39160;padding-bottom:3px}
+.starry-edition .portal-finale-foot a{color:#efd391;border-bottom:1px solid #efd39160;padding-bottom:3px;font:16px Wenkai,serif}
 .starry-edition .portal-finale-orbit{position:relative;width:160px;height:82px;color:#f6d37a;pointer-events:none}
 .starry-edition .portal-finale-orbit i{position:absolute;inset:22px 0;border:1px solid #e7c98350;border-radius:50%;transform:rotate(-18deg)}
 .starry-edition .portal-finale-orbit b{position:absolute;left:62px;top:9px;font:48px/1 Georgia,serif;text-shadow:0 0 24px #f3d98055;animation:portalStarFloat 6s ease-in-out infinite}

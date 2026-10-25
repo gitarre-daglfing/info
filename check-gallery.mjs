@@ -13,7 +13,7 @@ window.eval(fs.readFileSync('pages.js','utf8'));
 
 const {document}=window;
 const thumbnails=[...document.querySelectorAll('.gallery-item')];
-assert.equal(document.querySelector('main h1')?.textContent,'Galerie');
+assert.equal(document.querySelector('main h1')?.textContent,'Fotos');
 assert.equal(thumbnails.length,7);
 assert.equal(document.querySelector('.gallery-copyright')?.textContent,'© Paul Jesberger');
 assert.deepEqual(thumbnails.map(button=>button.querySelector('img').getAttribute('src')),[
